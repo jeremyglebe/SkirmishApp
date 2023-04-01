@@ -1,0 +1,7 @@
+{
+  "name": "WarStuffApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
