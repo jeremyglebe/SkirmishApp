@@ -6,7 +6,7 @@ import {
   ModalController,
   NavController,
 } from '@ionic/angular';
-import { Group, Unit } from '../data/models';
+import { Unit } from '../data/models';
 import { UnitService } from '../services/unit.service';
 import { ViewUnitPage } from '../view-unit/view-unit.page';
 
@@ -20,7 +20,6 @@ import { ViewUnitPage } from '../view-unit/view-unit.page';
 })
 export class HomePage implements OnInit {
   units: Unit[] = []; // Array to store the list of units
-  groups: Group[] = []; // Array to store the list of groups
 
   constructor(
     private navCtrl: NavController,
@@ -47,13 +46,7 @@ export class HomePage implements OnInit {
     await modal.present();
   }
 
-  viewGroup(group: Group) {
-    console.log('View group:', group);
-    // Navigate to the group view page (not implemented yet)
-  }
-
   createUnit() {
-    console.log('Create unit');
     this.navCtrl.navigateForward('/unit-creation');
   }
 
@@ -77,5 +70,9 @@ export class HomePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  navigateToWarbandsList() {
+    this.navCtrl.navigateForward('/warbands-list');
   }
 }

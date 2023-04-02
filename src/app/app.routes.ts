@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { UnitCreationPage } from './unit-creation/unit-creation.page';
 
 export const routes: Routes = [
   {
@@ -13,10 +12,21 @@ export const routes: Routes = [
   },
   {
     path: 'unit-creation',
-    component: UnitCreationPage,
+    loadComponent: () =>
+      import('./unit-creation/unit-creation.page').then(
+        (m) => m.UnitCreationPage
+      ),
   },
   {
     path: 'view-unit',
-    loadComponent: () => import('./view-unit/view-unit.page').then( m => m.ViewUnitPage)
+    loadComponent: () =>
+      import('./view-unit/view-unit.page').then((m) => m.ViewUnitPage),
+  },
+  {
+    path: 'warbands-list',
+    loadComponent: () =>
+      import('./warbands-list/warbands-list.page').then(
+        (m) => m.WarbandsListPage
+      ),
   },
 ];

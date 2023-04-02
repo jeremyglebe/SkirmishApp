@@ -13,9 +13,10 @@ export interface Unit {
   image?: string; // Optional property for unit image
 }
 
-export interface Group {
+export interface Warband {
   id: string;
   name: string;
+  description: string;
   units: Unit[];
   totalCost: number;
 }
