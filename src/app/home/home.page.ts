@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private unitService: UnitService,
+    public unitService: UnitService,
     private modalController: ModalController,
     private alertController: AlertController
   ) {}

@@ -11,8 +11,8 @@
   <div class="unit-info">
     <img [src]="unit.image" alt="{{ unit.name }} image" class="unit-image" />
     <div class="unit-info-text">
-      <p>Total Cost: {{ unit.totalCost }}pts</p>
-      <p>Quality: {{ unit.quality }}+ ({{getBaseCost(unit)}}pts)</p>
+      <p>Total Cost: {{ unitService.calcUnitCost(unit) }}pts</p>
+      <p>Quality: {{ unit.quality }}+ ({{ unitService.getQualityCost(unit) }}pts)</p>
       <p>Special Rules:</p>
       <ul>
         <li *ngFor="let rule of unit.specialRules">

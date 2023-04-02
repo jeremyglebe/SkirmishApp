@@ -20,7 +20,7 @@
         <img [src]="unit.image" *ngIf="unit.image">
       </ion-avatar>
       <ion-label>{{ unit.name }}</ion-label>
-      <ion-note slot="end">{{ unit.totalCost }}pts</ion-note>
+      <ion-note slot="end">{{ unitService.calcUnitCost(unit) }}pts</ion-note>
       <ion-button fill="clear" slot="end" (click)="removeUnit(unit); $event.stopPropagation()">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>

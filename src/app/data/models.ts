@@ -9,7 +9,6 @@ export interface Unit {
   name: string;
   quality: number;
   specialRules: SpecialRule[];
-  totalCost: number;
   image?: string; // Optional property for unit image
 }
 
@@ -18,5 +17,4 @@ export interface Warband {
   name: string;
   description: string;
   units: Unit[];
-  totalCost: number;
 }

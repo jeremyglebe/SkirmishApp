@@ -16,7 +16,10 @@ import { QUALITY_COSTS } from '../data/core_rules';
 export class ViewUnitPage implements OnInit {
   @Input() unit!: Unit;
 
-  constructor(private modalController: ModalController) {}
+  constructor(
+    private modalController: ModalController,
+    public unitService: UnitService
+  ) {}
 
   ngOnInit() {}
 
@@ -24,7 +27,4 @@ export class ViewUnitPage implements OnInit {
     await this.modalController.dismiss();
   }
 
-  getBaseCost(unit: Unit) {
-    return QUALITY_COSTS[unit.quality];
-  }
 }

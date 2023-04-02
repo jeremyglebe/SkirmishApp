@@ -11,7 +11,7 @@
   <ion-list>
     <ion-item *ngFor="let warband of warbands">
       <ion-label>{{ warband.name }}</ion-label>
-      <ion-label>Total Cost: {{ warband.totalCost }}pts</ion-label>
+      <ion-label>Total Cost: {{ unitService.calcWarbandCost(warband) }}pts</ion-label>
       <ion-button fill="outline" size="small" (click)="viewWarbandDetails(warband)">View Details</ion-button>
     </ion-item>
   </ion-list>

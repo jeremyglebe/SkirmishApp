@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Unit, Warband } from '../data/models';
 import { Storage } from '@ionic/storage-angular';
+import { QUALITY_COSTS } from '../data/core_rules';
 
 @Injectable({
   providedIn: 'root',
@@ -59,5 +60,25 @@ export class UnitService {
   async clearWarbands() {
     await this.storage.remove('warbands');
     this.warbands = [];
+  }
+
+  calcUnitCost(unit: Unit): number {
+    let cost = QUALITY_COSTS[unit.quality];
+    for (let rule of unit.specialRules) {
+      cost += rule.cost;
+    }
+    return cost;
+  }
+
+  calcWarbandCost(warband: Warband): number {
+    let cost = 0;
+    for (let unit of warband.units) {
+      cost += this.calcUnitCost(unit);
+    }
+    return cost;
+  }
+
+  getQualityCost(unit: Unit): number {
+    return QUALITY_COSTS[unit.quality];
   }
 }

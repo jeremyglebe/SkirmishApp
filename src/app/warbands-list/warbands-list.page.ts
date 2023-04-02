@@ -17,7 +17,7 @@ export class WarbandsListPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private unitService: UnitService
+    public unitService: UnitService
   ) {}
 
   ngOnInit() {

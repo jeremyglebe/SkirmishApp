@@ -37,8 +37,7 @@ export class UnitCreationPage {
 
   constructor(
     private navCtrl: NavController,
-    private unitService: UnitService,
-    private modalController: ModalController
+    private unitService: UnitService
   ) {
     // Create the quality options from the QUALITY_COSTS object
     for (let quality in QUALITY_COSTS) {
@@ -56,26 +55,25 @@ export class UnitCreationPage {
     });
   }
 
-  get totalCost(): number {
-    let t = this.unitForm.value.quality.cost;
-    for (let rule of this.specialRulesSelected) {
-      t += rule.cost;
-    }
-    return t;
-  }
-
-  onSubmit() {
-    console.log('Form submitted:', this.unitForm.value);
+  get unit(): Unit {
     const submission: any = this.unitForm.value;
     const newUnit: Unit = {
       id: Math.random().toString(36).substring(2, 9),
       name: submission.name,
       quality: submission.quality.value,
       specialRules: submission.specialRules,
-      totalCost: this.totalCost,
       image: submission.image,
     };
-    this.unitService.addUnit(newUnit);
+    return newUnit;
+  }
+
+  get totalCost(): number {
+    return this.unitService.calcUnitCost(this.unit);
+  }
+
+  onSubmit() {
+    console.log('Form submitted:', this.unitForm.value);
+    this.unitService.addUnit(this.unit);
     this.navCtrl.navigateBack('/');
   }
 
