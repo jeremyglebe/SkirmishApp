@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Create Unit</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="unitForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-item>
+                <!-- <ion-label position="floating">Unit Name</ion-label> -->
+                <ion-input formControlName="name" label="Unit Name"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <!-- <ion-label>Quality</ion-label> -->
+                <ion-select formControlName="quality" label="Quality">
+                    <!-- Selector for the quality of the unit, also updates the cost when the value is changed -->
+                    <ion-select-option *ngFor="let option of qualityOptions" [value]="option">
+                        {{ option.value }}+ ({{ option.cost }}pts)
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <!-- <ion-label>Special Rules</ion-label> -->
+                <ion-select formControlName="specialRules" multiple="true" label="Special Rules">
+                    <ion-select-option *ngFor="let rule of specialRules" [value]="rule">
+                        {{ rule.name }} ({{ rule.cost }}pts)
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <!-- <ion-label position="floating">Image URL (optional)</ion-label> -->
+                <ion-input formControlName="image" type="url" label="Image URL (optional)"></ion-input>
+            </ion-item>
+        </ion-list>
+
+        <ion-button expand="block" type="submit" [disabled]="unitForm.invalid">Create Unit</ion-button>
+    </form>
+</ion-content>

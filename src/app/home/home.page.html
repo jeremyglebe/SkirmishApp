@@ -1,20 +1,38 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      WarStuff
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Units</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let unit of units" (click)="viewUnit(unit)">
+      <ion-avatar slot="start">
+        <img [src]="unit.image" *ngIf="unit.image">
+      </ion-avatar>
+      <ion-label>{{ unit.name }}</ion-label>
+      <ion-note slot="end">{{ unit.totalCost }}pts</ion-note>
+    </ion-item>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Groups</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let group of groups" (click)="viewGroup(group)">
+      <ion-label>{{ group.name }}</ion-label>
+      <ion-note slot="end">{{ group.totalCost }}pts</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createUnit()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

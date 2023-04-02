@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { UnitCreationPage } from './unit-creation/unit-creation.page';
 
 export const routes: Routes = [
   {
@@ -9,5 +10,13 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'unit-creation',
+    component: UnitCreationPage,
+  },
+  {
+    path: 'view-unit',
+    loadComponent: () => import('./view-unit/view-unit.page').then( m => m.ViewUnitPage)
   },
 ];
