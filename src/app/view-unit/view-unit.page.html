@@ -11,14 +11,14 @@
   <div class="unit-info">
     <img [src]="unit.image" alt="{{ unit.name }} image" class="unit-image" />
     <div class="unit-info-text">
-      <p>Quality: {{ unit.quality }}</p>
+      <p>Total Cost: {{ unit.totalCost }}pts</p>
+      <p>Quality: {{ unit.quality }}+ ({{getBaseCost(unit)}}pts)</p>
       <p>Special Rules:</p>
       <ul>
         <li *ngFor="let rule of unit.specialRules">
           {{ rule.name }} ({{ rule.cost }}pts): {{ rule.description }}
         </li>
       </ul>
-      <p>Total Cost: {{ unit.totalCost }}pts</p>
     </div>
   </div>
 </ion-content>

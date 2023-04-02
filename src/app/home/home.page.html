@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      WarStuff
+      WarStuff 2.2
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,6 +17,9 @@
       </ion-avatar>
       <ion-label>{{ unit.name }}</ion-label>
       <ion-note slot="end">{{ unit.totalCost }}pts</ion-note>
+      <ion-button fill="clear" slot="end" (click)="removeUnit(unit); $event.stopPropagation()">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 

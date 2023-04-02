@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { Unit } from '../data/models';
+import { UnitService } from '../services/unit.service';
+import { QUALITY_COSTS } from '../data/core_rules';
 
 @Component({
   selector: 'app-view-unit',
@@ -20,5 +22,9 @@ export class ViewUnitPage implements OnInit {
 
   async dismissModal() {
     await this.modalController.dismiss();
+  }
+
+  getBaseCost(unit: Unit) {
+    return QUALITY_COSTS[unit.quality];
   }
 }

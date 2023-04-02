@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ specialRule.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      {{ specialRule.description }}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" (click)="addSpecialRule()">Add</ion-button>
+  <ion-button expand="block" color="medium" (click)="cancel()">Cancel</ion-button>
+</ion-content>

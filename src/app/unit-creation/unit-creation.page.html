@@ -25,18 +25,41 @@
                 </ion-select>
             </ion-item>
 
-            <ion-item>
-                <!-- <ion-label>Special Rules</ion-label> -->
-                <ion-select formControlName="specialRules" multiple="true" label="Special Rules">
-                    <ion-select-option *ngFor="let rule of specialRules" [value]="rule">
-                        {{ rule.name }} ({{ rule.cost }}pts)
-                    </ion-select-option>
-                </ion-select>
+            <ion-item (click)="toggleShowRules()">
+                <ion-label>Special Rules (click to {{showRules? "hide" : "show"}})</ion-label>
             </ion-item>
+
+            <div id="rules-list" *ngIf="showRules">
+                <ion-item *ngFor="let rule of specialRules">
+                    <div (click)="toggleRuleExpansion(rule)" style="flex: 1;">
+                        <div>{{ rule.name }} ({{ rule.cost }}pts)</div>
+                        <div *ngIf="expandedRules.includes(rule.name)" style="margin-left:20px">
+                            <p>{{ rule.description }}</p>
+                        </div>
+                    </div>
+                    <div slot="end" (click)="toggleSpecialRule(rule); $event.stopPropagation();"
+                        [ngClass]="{'selected': specialRulesSelected.includes(rule)}" class="custom-checkbox">
+                        <ion-icon *ngIf="specialRulesSelected.includes(rule)" name="checkmark"
+                            style="color: white;"></ion-icon>
+                    </div>
+                </ion-item>
+            </div>
 
             <ion-item>
                 <!-- <ion-label position="floating">Image URL (optional)</ion-label> -->
                 <ion-input formControlName="image" type="url" label="Image URL (optional)"></ion-input>
+                <ion-button slot="end" (click)="fileInput.click()">Upload</ion-button>
+                <input #fileInput type="file" hidden (change)="onFileChange($event)" accept="image/*">
+            </ion-item>
+
+            <ion-item *ngIf="unitForm.value.name && totalCost">
+                <p>{{unitForm.value.name}} will cost {{totalCost}}pts</p>
+            </ion-item>
+
+            <ion-item *ngIf="unitForm.value.specialRules.length > 3">
+                <p>{{unitForm.value.name}}'s number of special rules is {{unitForm.value.specialRules.length}}!
+                    The maximum is typically 3 by the standard rules. You can still create it, but it may not be allowed
+                    at some games.</p>
             </ion-item>
         </ion-list>
 

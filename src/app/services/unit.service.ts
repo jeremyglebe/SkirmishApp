@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { Unit } from '../data/models';
 import { Storage } from '@ionic/storage-angular';
 
@@ -7,29 +6,34 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root',
 })
 export class UnitService {
-  private unitsSource = new BehaviorSubject<Unit[]>([]);
-  units$ = this.unitsSource.asObservable();
+  private units: Unit[] = [];
 
   constructor(private storage: Storage) {
     this.init();
   }
 
-  async init() {
+  async init(): Promise<void> {
     await this.storage.create();
     const storedUnits = (await this.storage.get('units')) || [];
-    this.unitsSource.next(storedUnits);
+    this.units = storedUnits;
   }
 
   async addUnit(unit: Unit) {
-    const units = this.unitsSource.getValue();
-    units.push(unit);
-    this.unitsSource.next(units);
-    await this.storage.set('units', units);
+    this.units.push(unit);
+    await this.storage.set('units', this.units);
   }
 
-  // Clear all units from storage
+  getUnits(): Unit[] {
+    return this.units;
+  }
+
+  async removeUnit(unit: Unit) {
+    this.units = this.units.filter((u) => u !== unit);
+    await this.storage.set('units', this.units);
+  }
+
   async clearUnits() {
     await this.storage.remove('units');
-    this.unitsSource.next([]);
+    this.units = [];
   }
 }

@@ -1,0 +1,25 @@
+#rules-list {
+  height: 50vh;
+  overflow-y: scroll;
+  margin-left: 40px;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid var(--ion-color-primary);
+  transition: background-color 0.3s;
+}
+
+.custom-checkbox.selected {
+  background-color: var(--ion-color-primary);
+}
+
+ion-item p {
+    text-align: center;
+}
