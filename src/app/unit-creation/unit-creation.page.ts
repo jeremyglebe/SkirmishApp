@@ -16,7 +16,6 @@ import { SPECIAL_RULES } from '../data/special_rules';
 import { CommonModule } from '@angular/common';
 import { UnitService } from '../services/unit.service';
 import { QUALITY_COSTS } from '../data/core_rules';
-import { SpecialRuleModalComponent } from '../special-rule-modal/special-rule-modal.component';
 
 @Component({
   selector: 'app-unit-creation',
