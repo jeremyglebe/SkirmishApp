@@ -29,11 +29,7 @@ export class HomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.loadUnits();
-  }
-
-  async loadUnits() {
-    await this.unitService.init();
+    await this.unitService.initialize();
     this.units = this.unitService.getUnits();
   }
 

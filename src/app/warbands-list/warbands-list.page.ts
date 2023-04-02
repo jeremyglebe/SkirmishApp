@@ -20,18 +20,39 @@ export class WarbandsListPage implements OnInit {
     public unitService: UnitService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.unitService.initialize();
+    this.loadWarbands();
+  }
+
+  async ionViewWillEnter() {
+    this.loadWarbands();
+  }
+
+  loadWarbands() {
     this.warbands = this.unitService.getWarbands();
   }
 
   viewWarbandDetails(warband: Warband) {
     // Navigate to the Warband Details page (you'll create this page later)
-    this.navCtrl.navigateForward(`/warband-details/${warband.id}`);
+    this.navCtrl.navigateForward(`/warband-view`, {
+      queryParams: { id: warband.id },
+    });
   }
 
   createNewWarband() {
-    // Navigate to the Warband Creation page (you'll create this page later)
-    this.navCtrl.navigateForward('/warband-creation');
+    // Navigate to the Warband Editor page for creating a new Warband
+    this.navCtrl.navigateForward('/warband-editor');
   }
 
+  editWarband(warband: Warband) {
+    this.navCtrl.navigateForward('/warband-editor', {
+      queryParams: { warband: JSON.stringify(warband) },
+    });
+  }
+
+  removeWarband(warband: Warband) {
+    this.unitService.removeWarband(warband);
+    this.loadWarbands();
+  }
 }

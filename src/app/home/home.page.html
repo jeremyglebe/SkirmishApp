@@ -17,7 +17,7 @@
     </ion-item>
     <ion-item *ngFor="let unit of units" (click)="viewUnit(unit)">
       <ion-avatar slot="start">
-        <img [src]="unit.image" *ngIf="unit.image">
+        <img [src]="unit.image || 'assets/default-unit-image.png'">
       </ion-avatar>
       <ion-label>{{ unit.name }}</ion-label>
       <ion-note slot="end">{{ unitService.calcUnitCost(unit) }}pts</ion-note>

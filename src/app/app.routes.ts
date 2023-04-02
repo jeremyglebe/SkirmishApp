@@ -29,4 +29,12 @@ export const routes: Routes = [
         (m) => m.WarbandsListPage
       ),
   },
+  {
+    path: 'warband-editor',
+    loadComponent: () => import('./warband-editor/warband-editor.page').then( m => m.WarbandEditorPage)
+  },
+  {
+    path: 'warband-view',
+    loadComponent: () => import('./warband-view/warband-view.page').then( m => m.WarbandViewPage)
+  },
 ];

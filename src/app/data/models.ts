@@ -18,3 +18,5 @@ export interface Warband {
   description: string;
   units: Unit[];
 }
+
+export const DEFAULT_UNIT_IMAGE = 'data:image/png;base64,your_base64_image_string_here';

@@ -9,7 +9,7 @@
 
 <ion-content>
   <div class="unit-info">
-    <img [src]="unit.image" alt="{{ unit.name }} image" class="unit-image" />
+    <img [src]="unit.image || 'assets/default-unit-image.png'" alt="{{ unit.name }} image" class="unit-image" />
     <div class="unit-info-text">
       <p>Total Cost: {{ unitService.calcUnitCost(unit) }}pts</p>
       <p>Quality: {{ unit.quality }}+ ({{ unitService.getQualityCost(unit) }}pts)</p>

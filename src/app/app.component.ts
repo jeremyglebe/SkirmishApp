@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { UnitService } from './services/unit.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,5 @@ import { IonicStorageModule } from '@ionic/storage-angular';
   imports: [IonicModule],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(unitService: UnitService) {}
 }
