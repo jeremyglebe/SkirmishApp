@@ -16,17 +16,23 @@
   <ion-list-header>
     <ion-label>Units</ion-label>
   </ion-list-header>
+
   <ion-list>
-    <ion-item *ngFor="let unit of warband.units" (click)="viewUnit(unit)">
-      <ion-avatar slot="start">
-        <img [src]="unit.image || 'assets/default-unit-image.png'" />
-      </ion-avatar>
-      <ion-label>
-        {{ unit.name }}<br />
-        Quality: {{ unit.quality }}<br />
-        Cost: {{ unitService.calcUnitCost(unit) }}pts
-      </ion-label>
-      <ion-label class="ion-text-wrap">{{unitRulesString(unit)}}</ion-label>
-    </ion-item>
-  </ion-list>
+    <ng-container *ngFor="let unitObj of warband.units">
+      <ion-item (click)="viewUnit(unitObj.unit)">
+        <ion-avatar slot="start">
+          <img [src]="unitObj.unit.image || 'assets/default-unit-image.png'" />
+        </ion-avatar>
+        <ion-label>
+          {{ unitObj.unit.name }} x{{ unitObj.count }}<br />
+          Quality: {{ unitObj.unit.quality }}<br />
+          Cost: {{ unitService.calcUnitCost(unitObj.unit) }}pts
+        </ion-label>
+        <ion-label class="ion-text-wrap">
+          {{unitRulesString(unitObj.unit)}}
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>  
+
 </ion-content>

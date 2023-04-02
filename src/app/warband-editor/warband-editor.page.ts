@@ -6,6 +6,7 @@ import {
   Validators,
   ReactiveFormsModule,
   FormArray,
+  FormsModule,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IonicModule, NavController } from '@ionic/angular';
@@ -21,13 +22,14 @@ import { ViewUnitPage } from '../view-unit/view-unit.page';
   styleUrls: ['warband-editor.page.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [IonicModule, CommonModule, ReactiveFormsModule],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule, FormsModule],
 })
 export class WarbandEditorPage {
   warbandForm: FormGroup;
   warband: Warband;
   allUnits: Unit[] = [];
-  units: Unit[];
+  units: { unit: Unit; count: number }[];
+  unitCounts: { [key: string]: number } = {};
 
   constructor(
     private navCtrl: NavController,
@@ -47,25 +49,33 @@ export class WarbandEditorPage {
       ],
     });
     this.units = this.warband ? this.warband.units : [];
+    this.allUnits.forEach((unit) => {
+      this.unitCounts[unit.id] = 1;
+    });
   }
 
   toggleUnitSelection(unit: Unit) {
-    // Check for the unit in this.units, if it's there, remove it, if it's not there, add it
-    // Comparison can't be done by reference, so we need to compare the id
-    const index = this.units.findIndex((u: Unit) => u.id === unit.id);
+    const index = this.units.findIndex((u) => u.unit.id === unit.id);
     if (index === -1) {
-      this.units.push(unit);
+      this.units.push({ unit, count: 1 });
     } else {
       this.units.splice(index, 1);
     }
   }
-
+  
   async saveWarband() {
+    const updatedUnits = this.units.map((unitCountObj) => {
+      return {
+        unit: unitCountObj.unit,
+        count: this.unitCounts[unitCountObj.unit.id] || 1,
+      };
+    });
+  
     const formData = {
       ...this.warbandForm.value,
-      units: this.units, // Include units from the form
+      units: updatedUnits, // Include updated units from the form
     };
-
+  
     if (this.warband) {
       this.unitService.updateWarband({ ...this.warband, ...formData });
     } else {
@@ -84,6 +94,7 @@ export class WarbandEditorPage {
   }
 
   isUnitInWarband(unit: Unit): boolean {
-    return this.units.some((u: Unit) => u.id === unit.id);
+    return this.units.some((u) => u.unit.id === unit.id);
   }
+  
 }

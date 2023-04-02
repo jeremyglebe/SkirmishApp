@@ -118,11 +118,11 @@ export class UnitService {
   calcWarbandCost(warband: Warband): number {
     this.checkInitialization();
     let cost = 0;
-    for (let unit of warband.units) {
-      cost += this.calcUnitCost(unit);
+    for (let unitObj of warband.units) {
+      cost += this.calcUnitCost(unitObj.unit) * unitObj.count;
     }
     return cost;
-  }
+  }  
 
   getQualityCost(unit: Unit): number {
     this.checkInitialization();

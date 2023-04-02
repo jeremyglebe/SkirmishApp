@@ -16,7 +16,8 @@ export interface Warband {
   id: string;
   name: string;
   description: string;
-  units: Unit[];
+  units: { unit: Unit; count: number }[];
 }
 
-export const DEFAULT_UNIT_IMAGE = 'data:image/png;base64,your_base64_image_string_here';
+export const DEFAULT_UNIT_IMAGE =
+  'data:image/png;base64,your_base64_image_string_here';

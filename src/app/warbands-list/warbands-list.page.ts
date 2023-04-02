@@ -1,7 +1,7 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Warband } from '../data/models';
 import { UnitService } from '../services/unit.service';
-import { IonicModule, NavController } from '@ionic/angular';
+import { AlertController, IonicModule, NavController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,7 +17,8 @@ export class WarbandsListPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    public unitService: UnitService
+    public unitService: UnitService,
+    private alertController: AlertController
   ) {}
 
   async ngOnInit() {
@@ -55,4 +56,26 @@ export class WarbandsListPage implements OnInit {
     this.unitService.removeWarband(warband);
     this.loadWarbands();
   }
+
+  async presentRemoveWarbandAlert(warband: Warband) {
+    const alert = await this.alertController.create({
+      header: 'Delete Warband',
+      message: 'Are you sure you want to delete this warband?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.removeWarband(warband);
+          },
+        },
+      ],
+    });
+  
+    await alert.present();
+  }
+  
 }
