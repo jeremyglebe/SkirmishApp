@@ -11,14 +11,14 @@ import { UnitService } from '../services/unit.service';
 import { ViewUnitPage } from '../view-unit/view-unit.page';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-units-list',
+  templateUrl: 'units-list.page.html',
+  styleUrls: ['units-list.page.scss'],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [IonicModule, CommonModule],
 })
-export class HomePage implements OnInit {
+export class UnitsListPage implements OnInit {
   units: Unit[] = []; // Array to store the list of units
 
   constructor(
