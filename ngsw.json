@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1680636004463,
+  "timestamp": 1680637611575,
   "index": "/WarStuffApp/index.html",
   "assetGroups": [
     {
@@ -14,7 +14,7 @@
         "/WarStuffApp/1033.9add2499d68cce2c.js",
         "/WarStuffApp/1118.1de0914d47e53e9f.js",
         "/WarStuffApp/1217.5dd82d4550c1234a.js",
-        "/WarStuffApp/1296.61fea2c0c0dabe6b.js",
+        "/WarStuffApp/1296.4b34e896ecf51a85.js",
         "/WarStuffApp/1536.c99fcb9bc87c26f2.js",
         "/WarStuffApp/1709.97b2bf129c856811.js",
         "/WarStuffApp/2073.753fc04dbd6039b7.js",
@@ -75,7 +75,7 @@
         "/WarStuffApp/polyfills-core-js.9b71ceed1de7450c.js",
         "/WarStuffApp/polyfills-dom.5c5f23fb57b03028.js",
         "/WarStuffApp/polyfills.d4788768f8be496e.js",
-        "/WarStuffApp/runtime.a4dd022a5d04798d.js",
+        "/WarStuffApp/runtime.f635654ba49b5b32.js",
         "/WarStuffApp/styles.965386fe6782e473.css"
       ],
       "patterns": []
@@ -89,7 +89,7 @@
       },
       "urls": [
         "/WarStuffApp/assets/default-unit-image.png",
-        "/WarStuffApp/assets/icon/favicon.png",
+        "/WarStuffApp/assets/icons/favicon.png",
         "/WarStuffApp/assets/icons/icon-128x128.png",
         "/WarStuffApp/assets/icons/icon-144x144.png",
         "/WarStuffApp/assets/icons/icon-152x152.png",
@@ -97,8 +97,7 @@
         "/WarStuffApp/assets/icons/icon-384x384.png",
         "/WarStuffApp/assets/icons/icon-512x512.png",
         "/WarStuffApp/assets/icons/icon-72x72.png",
-        "/WarStuffApp/assets/icons/icon-96x96.png",
-        "/WarStuffApp/assets/shapes.svg"
+        "/WarStuffApp/assets/icons/icon-96x96.png"
       ],
       "patterns": []
     }
@@ -108,7 +107,7 @@
     "/WarStuffApp/1033.9add2499d68cce2c.js": "e22b563ed4ae2ae51e5953e13a61799428fcb5f7",
     "/WarStuffApp/1118.1de0914d47e53e9f.js": "70261756e8ce7af202291b2be092f721bf2d63b1",
     "/WarStuffApp/1217.5dd82d4550c1234a.js": "a48cc572d08089b46f3ec48f5082409daba2f68f",
-    "/WarStuffApp/1296.61fea2c0c0dabe6b.js": "8711f0801d8d03db07b649d3b31341c3dc22ae8c",
+    "/WarStuffApp/1296.4b34e896ecf51a85.js": "3fe3e54eebda1314dde5f4531ed3c69f44b3338d",
     "/WarStuffApp/1536.c99fcb9bc87c26f2.js": "e65d31ac19f8988c14a57918c5b4092a5ca9cf3c",
     "/WarStuffApp/1709.97b2bf129c856811.js": "6f03cc9e51849129650759965ce44617b64fa898",
     "/WarStuffApp/2073.753fc04dbd6039b7.js": "77a143bc09b0fe17d2f70dce8759540c3ddf259c",
@@ -163,24 +162,23 @@
     "/WarStuffApp/9954.8558a558261bb357.js": "3b1f1b56df6cd8031660ea9f51003ac0d5efd37e",
     "/WarStuffApp/9958.00f537910971e39b.js": "78a08a093d8716b3e19580b7d2beb8d3d5416655",
     "/WarStuffApp/assets/default-unit-image.png": "d451d02465d167640b7e312c0e9864d51fd0b989",
-    "/WarStuffApp/assets/icon/favicon.png": "7798b8e0eb61d7375c245af78bbf5c916932bf13",
+    "/WarStuffApp/assets/icons/favicon.png": "31d392eb563aaf7fcbf27864a98184cf4d65a320",
     "/WarStuffApp/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
-    "/WarStuffApp/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
-    "/WarStuffApp/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
-    "/WarStuffApp/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/WarStuffApp/assets/icons/icon-144x144.png": "93d4938c8302b201c2ad54ce4279d3166493b781",
+    "/WarStuffApp/assets/icons/icon-152x152.png": "9a0912a5e916db9b9ab1334ad64f45f078c3cb85",
+    "/WarStuffApp/assets/icons/icon-192x192.png": "e6877db2328d594704e1cc13d72e33dcf88d63f9",
     "/WarStuffApp/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
     "/WarStuffApp/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "/WarStuffApp/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
-    "/WarStuffApp/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "/WarStuffApp/assets/shapes.svg": "5413e95adabcb2cb639970051f55e0ddb64ace53",
+    "/WarStuffApp/assets/icons/icon-72x72.png": "31d392eb563aaf7fcbf27864a98184cf4d65a320",
+    "/WarStuffApp/assets/icons/icon-96x96.png": "64b505df84e7f9a9bfe7f1bae7a5cb4789fa4853",
     "/WarStuffApp/common.2237fd2d873e8097.js": "23ea00f4dc80d0a8116d98a43461826a411b5499",
-    "/WarStuffApp/index.html": "c06a5da6f9a65c9fe89301aa8b6efdfdb80756d9",
+    "/WarStuffApp/index.html": "d30b150c6438294295154f6bd0ca5c4824934756",
     "/WarStuffApp/main.47922ec1068edaa3.js": "717737bfacc22ed1a1197fdde5a20e36f439dc5e",
-    "/WarStuffApp/manifest.webmanifest": "bf46c79532ced618d885223540385ac2be1e482f",
+    "/WarStuffApp/manifest.webmanifest": "589971a1beea9308c30adb94fd8cbe4b88bd34c0",
     "/WarStuffApp/polyfills-core-js.9b71ceed1de7450c.js": "468569373464d87d7b70e6e53a64e3de1e487d3f",
     "/WarStuffApp/polyfills-dom.5c5f23fb57b03028.js": "06f5dc30f55bf9a3d9c6f9bca07c0041a6bbdaa0",
     "/WarStuffApp/polyfills.d4788768f8be496e.js": "3cda53753ebe9ab6bb6fe6beb032e1a967ca5567",
-    "/WarStuffApp/runtime.a4dd022a5d04798d.js": "a8dcc0a024e97284c0fe1f15f42138f3894064ae",
+    "/WarStuffApp/runtime.f635654ba49b5b32.js": "b9d3488008ba3cca27f77cb49525bdf02512584c",
     "/WarStuffApp/styles.965386fe6782e473.css": "db59c72db59d9833b7a1bf35f7cc04b21012f3d8"
   },
   "navigationUrls": [
