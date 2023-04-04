@@ -26,7 +26,7 @@ import { ViewUnitPage } from '../view-unit/view-unit.page';
 })
 export class WarbandEditorPage {
   warbandForm: FormGroup;
-  warband: Warband;
+  warband: Warband | null;
   allUnits: Unit[] = [];
   units: { unit: Unit; count: number }[];
   unitCounts: { [key: string]: number } = {};
@@ -39,8 +39,12 @@ export class WarbandEditorPage {
     private modalController: ModalController
   ) {
     this.allUnits = this.unitService.getUnits();
-    const warbandParam = this.route.snapshot.queryParamMap.get('warband');
-    this.warband = warbandParam ? JSON.parse(warbandParam) : null;
+    const warbandId = this.route.snapshot.queryParamMap.get('warbandId');
+    if (warbandId) {
+      this.warband = this.unitService.getWarbandById(warbandId);
+    } else {
+      this.warband = null;
+    }
     this.warbandForm = this.fb.group({
       name: [this.warband ? this.warband.name : '', Validators.required],
       description: [

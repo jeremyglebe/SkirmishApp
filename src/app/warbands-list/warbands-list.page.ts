@@ -48,7 +48,7 @@ export class WarbandsListPage implements OnInit {
 
   editWarband(warband: Warband) {
     this.navCtrl.navigateForward('/warband-editor', {
-      queryParams: { warband: JSON.stringify(warband) },
+      queryParams: { warbandId: warband.id },
     });
   }
 
@@ -74,8 +74,7 @@ export class WarbandsListPage implements OnInit {
         },
       ],
     });
-  
+
     await alert.present();
   }
-  
 }

@@ -245,10 +245,12 @@ export class UnitService {
   /**
    * Retrieves a warband by its ID.
    */
-  getWarbandById(id: string): Warband | undefined {
+  getWarbandById(warbandId: string): Warband | null {
     this.checkInitialization();
-    return this.warbands.find((w) => w.id === id);
+    const warband = this.warbands.find((w) => w.id === warbandId);
+    return warband ? { ...warband } : null;
   }
+  
 
   /**
    * Removes a warband from the warbands array and saves the changes to storage.

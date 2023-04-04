@@ -23,8 +23,8 @@
         <ion-avatar slot="start">
           <img [src]="unitObj.unit.image || 'assets/default-unit-image.png'" />
         </ion-avatar>
-        <ion-label>
-          {{ unitObj.unit.name }} x{{ unitObj.count }}<br />
+        <ion-label class="ion-text-wrap">
+          [{{ unitObj.count }}] {{ unitObj.unit.name }}<br />
           Quality: {{ unitObj.unit.quality }}<br />
           Cost: {{ unitService.calcUnitCost(unitObj.unit) }}pts
         </ion-label>
