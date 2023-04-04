@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { UnitService } from '../services/unit.service';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, OnDestroy {
   enhancedUnitCostRule: boolean = false;
 
   constructor(public unitService: UnitService) {}
@@ -25,6 +25,11 @@ export class SettingsPage implements OnInit {
       this.enhancedUnitCostRule =
         await this.unitService.getEnhancedUnitCostRule();
     });
+  }
+
+  async ngOnDestroy() {
+    // Unsubscribe from changes in the unit service
+    this.unitService.changes.unsubscribe();
   }
 
   async onEnhancedUnitCostRuleToggleChange(event: Event) {
@@ -44,7 +49,8 @@ export class SettingsPage implements OnInit {
   async importData() {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.json';
+    // fileInput.accept = '.json';
+    // fileInput.accept = '*/*';
     fileInput.addEventListener('change', async (event) => {
       const file = (event.target as HTMLInputElement).files?.[0];
       if (file) {

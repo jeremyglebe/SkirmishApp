@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import {
   AlertController,
   IonicModule,
@@ -18,7 +23,7 @@ import { UnitViewPage } from '../unit-view/unit-view.page';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [IonicModule, CommonModule],
 })
-export class UnitsListPage implements OnInit {
+export class UnitsListPage implements OnInit, OnDestroy {
   units: Unit[] = []; // Array to store the list of units
 
   constructor(
@@ -31,6 +36,15 @@ export class UnitsListPage implements OnInit {
   async ngOnInit() {
     await this.unitService.initialize();
     this.units = this.unitService.getUnits();
+    // Subscribe to changes in the unit service so we can update the list of units if needed
+    this.unitService.changes.subscribe(() => {
+      this.units = this.unitService.getUnits();
+    });
+  }
+
+  async ngOnDestroy() {
+    // Unsubscribe from changes in the unit service
+    this.unitService.changes.unsubscribe();
   }
 
   async viewUnit(unit: Unit) {
@@ -48,7 +62,7 @@ export class UnitsListPage implements OnInit {
 
   editUnit(unit: Unit) {
     this.navCtrl.navigateForward(`/unit-editor?unitId=${unit.id}`);
-  }  
+  }
 
   async removeUnit(unit: Unit) {
     const alert = await this.alertController.create({
