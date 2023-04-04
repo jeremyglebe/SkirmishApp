@@ -46,17 +46,17 @@ export const routes: Routes = [
   },
   // The unit creation page is where users design new units
   {
-    path: 'unit-creation',
+    path: 'unit-editor',
     loadComponent: () =>
-      import('./unit-creation/unit-creation.page').then(
-        (m) => m.UnitCreationPage
+      import('./unit-editor/unit-editor.page').then(
+        (m) => m.UnitEditorPage
       ),
   },
   // The unit view page is where users view the details of a unit
   {
-    path: 'view-unit',
+    path: 'unit-view',
     loadComponent: () =>
-      import('./view-unit/view-unit.page').then((m) => m.ViewUnitPage),
+      import('./unit-view/unit-view.page').then((m) => m.UnitViewPage),
   },
   // This is a standalone route to the warbands listing page
   // This is usually accessed as a tab and shouldn't be accessed directly

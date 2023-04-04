@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ViewUnitPage } from './view-unit.page';
+import { UnitViewPage } from './unit-view.page';
 
 describe('ViewUnitPage', () => {
-  let component: ViewUnitPage;
-  let fixture: ComponentFixture<ViewUnitPage>;
+  let component: UnitViewPage;
+  let fixture: ComponentFixture<UnitViewPage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ViewUnitPage);
+    fixture = TestBed.createComponent(UnitViewPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

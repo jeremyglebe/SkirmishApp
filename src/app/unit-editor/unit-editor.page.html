@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
         </ion-buttons>
-        <ion-title>Create Unit</ion-title>
+        <ion-title>{{ editing ? 'Edit' : 'Create' }} Unit</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -38,21 +38,25 @@
                         </div>
                     </div>
                     <div slot="end" (click)="toggleSpecialRule(rule); $event.stopPropagation();"
-                        [ngClass]="{'selected': specialRulesSelected.includes(rule)}" class="custom-checkbox">
-                        <ion-icon *ngIf="specialRulesSelected.includes(rule)" name="checkmark"
-                            style="color: white;"></ion-icon>
+                        [ngClass]="{'selected': ruleIsSelected(rule)}" class="custom-checkbox">
+                        <ion-icon *ngIf="ruleIsSelected(rule)" name="checkmark" style="color: white;"></ion-icon>
                     </div>
                 </ion-item>
             </div>
 
             <ion-item>
-                <!-- <ion-label position="floating">Image URL (optional)</ion-label> -->
-                <ion-input formControlName="image" type="url" label="Image URL (optional)"></ion-input>
+                <ion-input style="overflow: hidden;" formControlName="image" type="url"
+                    label="Image URL (optional)"></ion-input>
                 <ion-button slot="end" (click)="fileInput.click()">Upload</ion-button>
                 <input #fileInput type="file" hidden (change)="onFileChange($event)" accept="image/*">
             </ion-item>
 
-            <ion-item *ngIf="unitForm.value.name && totalCost">
+            <div style="display: flex; justify-content: center;">
+                <img [src]="unitForm.value.image || 'assets/default-unit-image.png'"
+                    style="max-width: 100%; max-height: 100px;">
+            </div>
+
+            <ion-item *ngIf="unitForm.value.name && unitForm.value.quality">
                 <p>{{unitForm.value.name}} will cost {{totalCost}}pts</p>
             </ion-item>
 
@@ -63,6 +67,7 @@
             </ion-item>
         </ion-list>
 
-        <ion-button expand="block" type="submit" [disabled]="unitForm.invalid">Create Unit</ion-button>
+        <ion-button expand="block" type="submit" [disabled]="unitForm.invalid">{{ editing ? 'Save' : 'Create' }}
+            Unit</ion-button>
     </form>
 </ion-content>

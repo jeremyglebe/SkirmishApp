@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IonicModule, ModalController, NavController } from '@ionic/angular';
 import { Unit, Warband } from '../data/models';
 import { UnitService } from '../services/unit.service';
-import { ViewUnitPage } from '../view-unit/view-unit.page';
+import { UnitViewPage } from '../unit-view/unit-view.page';
 
 @Component({
   selector: 'app-warband-view',
@@ -52,7 +52,7 @@ export class WarbandViewPage implements OnInit {
   
   async viewUnit(unit: Unit) {
     const modal = await this.modalController.create({
-      component: ViewUnitPage,
+      component: UnitViewPage,
       componentProps: { unit },
     });
 

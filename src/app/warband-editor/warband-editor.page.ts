@@ -14,7 +14,7 @@ import { Warband } from '../data/models';
 import { UnitService } from '../services/unit.service';
 import { Unit } from '../data/models';
 import { ModalController } from '@ionic/angular';
-import { ViewUnitPage } from '../view-unit/view-unit.page';
+import { UnitViewPage } from '../unit-view/unit-view.page';
 
 @Component({
   selector: 'app-warband-editor',
@@ -87,7 +87,7 @@ export class WarbandEditorPage {
 
   async viewUnit(unit: Unit) {
     const modal = await this.modalController.create({
-      component: ViewUnitPage,
+      component: UnitViewPage,
       componentProps: { unit },
     });
 

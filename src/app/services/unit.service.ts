@@ -189,6 +189,21 @@ export class UnitService {
     this.units = [];
   }
 
+  async updateUnit(updatedUnit: Unit): Promise<void> {
+    const unitIndex = this.units.findIndex(
+      (unit) => unit.id === updatedUnit.id
+    );
+    if (unitIndex !== -1) {
+      this.units[unitIndex] = updatedUnit;
+      await this.storage.set('units', this.units);
+    }
+  }
+
+  getUnitById(id: string): Unit | null {
+    const result = this.units.find((unit) => unit.id === id);
+    return result || null;
+  }
+
   // __          __     _____  ____          _   _ _____   _____
   // \ \        / /\   |  __ \|  _ \   /\   | \ | |  __ \ / ____|
   //  \ \  /\  / /  \  | |__) | |_) | /  \  |  \| | |  | | (___
@@ -225,7 +240,7 @@ export class UnitService {
     };
     this.warbands.push(newWarband);
     await this.storage.set('warbands', this.warbands);
-  }  
+  }
 
   /**
    * Updates an existing warband and saves the changes to storage.
@@ -249,7 +264,6 @@ export class UnitService {
     const warband = this.warbands.find((w) => w.id === warbandId);
     return warband ? { ...warband } : null;
   }
-  
 
   /**
    * Removes a warband from the warbands array and saves the changes to storage.

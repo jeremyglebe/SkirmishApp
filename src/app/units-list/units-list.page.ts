@@ -8,7 +8,7 @@ import {
 } from '@ionic/angular';
 import { Unit } from '../data/models';
 import { UnitService } from '../services/unit.service';
-import { ViewUnitPage } from '../view-unit/view-unit.page';
+import { UnitViewPage } from '../unit-view/unit-view.page';
 
 @Component({
   selector: 'app-units-list',
@@ -35,7 +35,7 @@ export class UnitsListPage implements OnInit {
 
   async viewUnit(unit: Unit) {
     const modal = await this.modalController.create({
-      component: ViewUnitPage,
+      component: UnitViewPage,
       componentProps: { unit },
     });
 
@@ -43,8 +43,12 @@ export class UnitsListPage implements OnInit {
   }
 
   createUnit() {
-    this.navCtrl.navigateForward('/unit-creation');
+    this.navCtrl.navigateForward('/unit-editor');
   }
+
+  editUnit(unit: Unit) {
+    this.navCtrl.navigateForward(`/unit-editor?unitId=${unit.id}`);
+  }  
 
   async removeUnit(unit: Unit) {
     const alert = await this.alertController.create({

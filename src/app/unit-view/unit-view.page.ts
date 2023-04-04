@@ -7,13 +7,13 @@ import { UnitService } from '../services/unit.service';
 import { QUALITY_COSTS } from '../data/core_rules';
 
 @Component({
-  selector: 'app-view-unit',
-  templateUrl: './view-unit.page.html',
-  styleUrls: ['./view-unit.page.scss'],
+  selector: 'app-unit-view',
+  templateUrl: './unit-view.page.html',
+  styleUrls: ['./unit-view.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
-export class ViewUnitPage implements OnInit {
+export class UnitViewPage implements OnInit {
   @Input() unit!: Unit;
 
   constructor(
