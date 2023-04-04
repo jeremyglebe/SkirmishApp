@@ -162,7 +162,7 @@ export class UnitService {
    * Removes a unit from the units array and all warbands that include the unit,
    * then saves the updated data to storage.
    */
-  async removeUnit(unit: Unit) {
+  async purgeUnit(unit: Unit) {
     this.checkInitialization();
     // Remove the unit from the units array
     this.units = this.units.filter((u) => u.id !== unit.id);
@@ -178,6 +178,13 @@ export class UnitService {
     // Save the updated data to storage
     await this.storage.set('units', this.units);
     await this.storage.set('warbands', this.warbands);
+  }
+
+  // Deletes a unit from the units array and storage, but does not remove it from warbands.
+  async deleteUnit(unit: Unit) {
+    this.checkInitialization();
+    this.units = this.units.filter((u) => u.id !== unit.id);
+    await this.storage.set('units', this.units);
   }
 
   /**

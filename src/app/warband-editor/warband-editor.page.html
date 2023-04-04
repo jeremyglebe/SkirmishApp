@@ -25,10 +25,9 @@
   <ion-list-header>
     <ion-label>Available Units</ion-label>
   </ion-list-header>
-
   <ion-list>
     <ion-item>Click on a unit's avatar to view it's full description.</ion-item>
-    <ion-item *ngFor="let unit of allUnits">
+    <ion-item *ngFor="let unit of unitList">
       <ion-avatar slot="start" (click)="viewUnit(unit)">
         <img [src]="unit.image || 'assets/default-unit-image.png'" />
       </ion-avatar>
@@ -42,5 +41,23 @@
         class="count-input"></ion-input>
     </ion-item>
   </ion-list>
+
+  <ion-list-header *ngIf="uniqueUnits.length"><ion-label>Unique Units</ion-label></ion-list-header>
+  <ion-list>
+    <ion-item *ngFor="let unit of uniqueUnits">
+      <ion-avatar slot="start" (click)="viewUnit(unit)">
+        <img [src]="unit.image || 'assets/default-unit-image.png'" />
+      </ion-avatar>
+      <ion-checkbox [checked]="isUnitInWarband(unit)" (ionChange)="toggleUnitSelection(unit)" labelPlacement="start">
+        {{ unit.name }}<br />
+        Quality: {{ unit.quality }}<br />
+        Cost: {{ unitService.calcUnitCost(unit) }}pts
+      </ion-checkbox>
+      <ion-input *ngIf="isUnitInWarband(unit)" type="number" min="1" (input)="onUnitCountInput(unit.id, $event)"
+        (click)="onUnitCountClick($event)" [placeholder]="getUnitCount(unit)" label="" labelPlacement="stacked"
+        class="count-input"></ion-input>
+    </ion-item>
+  </ion-list>
+
   <ion-button expand="full" (click)="saveWarband()" [disabled]="!warbandForm.valid">Save Warband</ion-button>
 </ion-content>

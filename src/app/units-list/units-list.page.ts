@@ -66,23 +66,46 @@ export class UnitsListPage implements OnInit, OnDestroy {
 
   async removeUnit(unit: Unit) {
     const alert = await this.alertController.create({
-      header: 'Remove Unit',
-      message: 'Are you sure you want to remove this unit?',
+      header: 'Delete Unit',
+      message: 'Are you sure you want to delete this unit?',
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
         },
         {
-          text: 'Remove',
-          handler: () => {
-            this.unitService.removeUnit(unit);
-            this.units = this.unitService.getUnits();
+          text: 'Delete',
+          handler: async () => {
+            // Ask the user if they would like to just delete the unit, or purge it from all warbands
+            const purgeAlert = await this.alertController.create({
+              header: 'Purge Unit',
+              message: 'Would you like to remove this unit from all warbands?',
+              buttons: [
+                {
+                  text: 'No',
+                  handler: () => {
+                    this.unitService.purgeUnit(unit);
+                    this.units = this.unitService.getUnits();
+                  },
+                },
+                {
+                  text: 'Yes, purge from all my warbands',
+                  handler: () => {
+                    this.unitService.deleteUnit(unit);
+                    this.units = this.unitService.getUnits();
+                  },
+                },
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                },
+              ],
+            });
+            await purgeAlert.present();
           },
         },
       ],
     });
-
     await alert.present();
   }
 

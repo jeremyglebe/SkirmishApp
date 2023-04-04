@@ -28,7 +28,12 @@ export class WarbandEditorPage {
   paramID: string | null;
   warband: Warband;
   warbandForm: FormGroup;
-  allUnits: Unit[] = [];
+  // The unit list is the list of all units currently saved and managed by the unit service
+  unitList: Unit[] = [];
+  // Unique units are units which were loaded in as part of a warband being edited
+  // They do not exist in the saved unit list, so we need to keep track of them separately
+  uniqueUnits: Unit[] = [];
+  // The units and unit counts is the list of currently selected units for this warband
   units: { unit: Unit; count: number }[];
 
   constructor(
@@ -38,7 +43,7 @@ export class WarbandEditorPage {
     public unitService: UnitService,
     private modalController: ModalController
   ) {
-    this.allUnits = this.unitService.getUnits();
+    this.unitList = this.unitService.getUnits();
     this.paramID = this.route.snapshot.queryParamMap.get('warbandId');
     const newWarband = {
       id: '',
@@ -57,6 +62,13 @@ export class WarbandEditorPage {
       description: [this.warband.description],
     });
     this.units = this.warband.units;
+    // Searching through the units in the warband, if any are not in the unit list,
+    // then they are unique to this warband
+    this.warband.units.forEach((u) => {
+      if (!this.unitList.some((unit) => unit.id === u.unit.id)) {
+        this.uniqueUnits.push(u.unit);
+      }
+    });
   }
 
   toggleUnitSelection(unit: Unit) {
