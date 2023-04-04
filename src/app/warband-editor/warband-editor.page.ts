@@ -25,8 +25,9 @@ import { ViewUnitPage } from '../view-unit/view-unit.page';
   imports: [IonicModule, CommonModule, ReactiveFormsModule, FormsModule],
 })
 export class WarbandEditorPage {
+  paramID: string | null;
+  warband: Warband;
   warbandForm: FormGroup;
-  warband: Warband | null;
   allUnits: Unit[] = [];
   units: { unit: Unit; count: number }[];
   unitCounts: { [key: string]: number } = {};
@@ -39,20 +40,24 @@ export class WarbandEditorPage {
     private modalController: ModalController
   ) {
     this.allUnits = this.unitService.getUnits();
-    const warbandId = this.route.snapshot.queryParamMap.get('warbandId');
-    if (warbandId) {
-      this.warband = this.unitService.getWarbandById(warbandId);
+    this.paramID = this.route.snapshot.queryParamMap.get('warbandId');
+    const newWarband = {
+      id: '',
+      name: '',
+      description: '',
+      units: [],
+    };
+    if (this.paramID) {
+      const result = this.unitService.getWarbandById(this.paramID);
+      this.warband = result ? result : newWarband;
     } else {
-      this.warband = null;
+      this.warband = newWarband;
     }
     this.warbandForm = this.fb.group({
-      name: [this.warband ? this.warband.name : '', Validators.required],
-      description: [
-        this.warband ? this.warband.description : '',
-        Validators.required,
-      ],
+      name: [this.warband.name, Validators.required],
+      description: [this.warband.description, Validators.required],
     });
-    this.units = this.warband ? this.warband.units : [];
+    this.units = this.warband.units;
     this.allUnits.forEach((unit) => {
       this.unitCounts[unit.id] = 1;
     });
@@ -66,7 +71,7 @@ export class WarbandEditorPage {
       this.units.splice(index, 1);
     }
   }
-  
+
   async saveWarband() {
     const updatedUnits = this.units.map((unitCountObj) => {
       return {
@@ -74,13 +79,13 @@ export class WarbandEditorPage {
         count: this.unitCounts[unitCountObj.unit.id] || 1,
       };
     });
-  
+
     const formData = {
       ...this.warbandForm.value,
       units: updatedUnits, // Include updated units from the form
     };
-  
-    if (this.warband) {
+
+    if (this.paramID) {
       this.unitService.updateWarband({ ...this.warband, ...formData });
     } else {
       this.unitService.createWarband(formData);
@@ -100,5 +105,4 @@ export class WarbandEditorPage {
   isUnitInWarband(unit: Unit): boolean {
     return this.units.some((u) => u.unit.id === unit.id);
   }
-  
 }

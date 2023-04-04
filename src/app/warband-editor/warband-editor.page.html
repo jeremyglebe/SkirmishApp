@@ -17,10 +17,14 @@
     </ion-item>
   </form>
 
+  <ion-item>
+    <ion-label>Warband Cost:</ion-label>
+    <ion-text>{{ unitService.calcWarbandCost(warband) }}pts</ion-text>
+  </ion-item>
+
   <ion-list-header>
     <ion-label>Available Units</ion-label>
   </ion-list-header>
-
 
   <ion-list>
     <ion-item>Click on a unit's avatar to view it's full description.</ion-item>

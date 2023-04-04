@@ -217,16 +217,15 @@ export class UnitService {
    * Creates a new warband with the provided data, adds it to the warbands array,
    * and saves it to storage.
    */
-  async createWarband(warbandData: Omit<Warband, 'id' | 'units'>) {
+  async createWarband(warbandData: Omit<Warband, 'id'>) {
     this.checkInitialization();
     const newWarband: Warband = {
       id: Date.now().toString(),
-      units: [],
       ...warbandData,
     };
     this.warbands.push(newWarband);
     await this.storage.set('warbands', this.warbands);
-  }
+  }  
 
   /**
    * Updates an existing warband and saves the changes to storage.
