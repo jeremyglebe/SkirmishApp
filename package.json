@@ -9,7 +9,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "deploy": "node ./scripts/update-deployment-date.js && gh-pages -d www",
-    "deploy:full": "ionic build --prod && npm run deploy",
+    "deploy:full": "node ./scripts/update-deployment-date.js && ionic build --prod && gh-pages -d www",
     "test": "ng test",
     "lint": "ng lint"
   },

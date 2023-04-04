@@ -54,7 +54,7 @@ export class WarbandEditorPage {
     }
     this.warbandForm = this.fb.group({
       name: [this.warband.name, Validators.required],
-      description: [this.warband.description, Validators.required],
+      description: [this.warband.description],
     });
     this.units = this.warband.units;
   }
@@ -82,7 +82,7 @@ export class WarbandEditorPage {
     } else {
       this.unitService.createWarband(formData);
     }
-    this.navCtrl.navigateBack('/warbands-list');
+    this.navCtrl.navigateBack('/tabs/warbands');
   }
 
   async viewUnit(unit: Unit) {
