@@ -30,7 +30,6 @@ export class WarbandEditorPage {
   warbandForm: FormGroup;
   allUnits: Unit[] = [];
   units: { unit: Unit; count: number }[];
-  unitCounts: { [key: string]: number } = {};
 
   constructor(
     private navCtrl: NavController,
@@ -58,31 +57,24 @@ export class WarbandEditorPage {
       description: [this.warband.description, Validators.required],
     });
     this.units = this.warband.units;
-    this.allUnits.forEach((unit) => {
-      this.unitCounts[unit.id] = 1;
-    });
   }
 
   toggleUnitSelection(unit: Unit) {
     const index = this.units.findIndex((u) => u.unit.id === unit.id);
+    // If the unit is not currently in the warband, add it
     if (index === -1) {
       this.units.push({ unit, count: 1 });
-    } else {
+    }
+    // If the unit is currently in the warband, remove it
+    else {
       this.units.splice(index, 1);
     }
   }
 
   async saveWarband() {
-    const updatedUnits = this.units.map((unitCountObj) => {
-      return {
-        unit: unitCountObj.unit,
-        count: this.unitCounts[unitCountObj.unit.id] || 1,
-      };
-    });
-
     const formData = {
       ...this.warbandForm.value,
-      units: updatedUnits, // Include updated units from the form
+      units: this.units, // Use the units array directly
     };
 
     if (this.paramID) {
@@ -104,5 +96,25 @@ export class WarbandEditorPage {
 
   isUnitInWarband(unit: Unit): boolean {
     return this.units.some((u) => u.unit.id === unit.id);
+  }
+
+  getUnitCount(unit: Unit): number {
+    const unitIndex = this.units.findIndex((u) => u.unit.id === unit.id);
+    return unitIndex !== -1 ? this.units[unitIndex].count : 0;
+  }
+
+  onUnitCountClick(ev: Event) {
+    (ev.target as HTMLInputElement).value = '';
+  }
+
+  onUnitCountInput(unitId: string, ev: Event) {
+    const newCount = (ev.target as HTMLInputElement).valueAsNumber;
+    console.log(newCount);
+    if (!isNaN(newCount)) {
+      const unitIndex = this.units.findIndex((u) => u.unit.id === unitId);
+      if (unitIndex !== -1) {
+        this.units[unitIndex].count = newCount;
+      }
+    }
   }
 }

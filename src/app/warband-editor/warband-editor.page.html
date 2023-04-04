@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ warband ? 'Edit Warband' : 'Create Warband' }}</ion-title>
+    <ion-title>{{ paramID ? 'Edit Warband' : 'Create Warband' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -37,11 +37,10 @@
         Quality: {{ unit.quality }}<br />
         Cost: {{ unitService.calcUnitCost(unit) }}pts
       </ion-checkbox>
-      <ion-input *ngIf="isUnitInWarband(unit)" type="number" min="1" [(ngModel)]="unitCounts[unit.id]" placeholder="1"
-        label="" labelPlacement="stacked" class="count-input"></ion-input>
+      <ion-input *ngIf="isUnitInWarband(unit)" type="number" min="1" (input)="onUnitCountInput(unit.id, $event)"
+        (click)="onUnitCountClick($event)" [placeholder]="getUnitCount(unit)" label="" labelPlacement="stacked"
+        class="count-input"></ion-input>
     </ion-item>
   </ion-list>
-
-
   <ion-button expand="full" (click)="saveWarband()" [disabled]="!warbandForm.valid">Save Warband</ion-button>
 </ion-content>
