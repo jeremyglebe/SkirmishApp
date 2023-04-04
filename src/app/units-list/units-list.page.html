@@ -11,10 +11,10 @@
     <ion-list-header>
       <ion-label>Units</ion-label>
     </ion-list-header>
-    <ion-item (click)="navigateToWarbandsList()">
+    <!-- <ion-item (click)="navigateToWarbandsList()">
       <ion-label>View Warbands</ion-label>
       <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-    </ion-item>
+    </ion-item> -->
     <ion-item *ngFor="let unit of units" (click)="viewUnit(unit)">
       <ion-avatar slot="start">
         <img [src]="unit.image || 'assets/default-unit-image.png'">
