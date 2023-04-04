@@ -8,7 +8,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "deploy": "gh-pages -d www",
+    "deploy": "node ./scripts/update-deployment-date.js && gh-pages -d www",
+    "deploy:full": "ionic build --prod && npm run deploy",
     "test": "ng test",
     "lint": "ng lint"
   },

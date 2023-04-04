@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { UnitService } from '../services/unit.service';
+import { APP_DEPLOYMENT } from '../data/app_info';
 
 @Component({
   selector: 'app-settings',
@@ -13,6 +14,7 @@ import { UnitService } from '../services/unit.service';
 })
 export class SettingsPage implements OnInit, OnDestroy {
   enhancedUnitCostRule: boolean = false;
+  appDeployment: string = APP_DEPLOYMENT;
 
   constructor(public unitService: UnitService) {}
 
