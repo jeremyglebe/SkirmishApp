@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1680589945754,
+  "timestamp": 1680590730721,
   "index": "/WarStuffApp/index.html",
   "assetGroups": [
     {
@@ -176,7 +176,7 @@
     "/WarStuffApp/common.2237fd2d873e8097.js": "23ea00f4dc80d0a8116d98a43461826a411b5499",
     "/WarStuffApp/index.html": "360bef715fb08342f7486ea297caeb96190908b2",
     "/WarStuffApp/main.ee8900f577546ab8.js": "74e15a63fa5038fbaeb48df694a30ea41e658cee",
-    "/WarStuffApp/manifest.webmanifest": "9a088b7c4339228d1082e666ce105dc889bc180c",
+    "/WarStuffApp/manifest.webmanifest": "bf46c79532ced618d885223540385ac2be1e482f",
     "/WarStuffApp/polyfills-core-js.9b71ceed1de7450c.js": "468569373464d87d7b70e6e53a64e3de1e487d3f",
     "/WarStuffApp/polyfills-dom.5c5f23fb57b03028.js": "06f5dc30f55bf9a3d9c6f9bca07c0041a6bbdaa0",
     "/WarStuffApp/polyfills.d4788768f8be496e.js": "3cda53753ebe9ab6bb6fe6beb032e1a967ca5567",
