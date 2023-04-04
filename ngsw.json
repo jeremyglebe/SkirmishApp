@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1680634394109,
+  "timestamp": 1680635246124,
   "index": "/WarStuffApp/index.html",
   "assetGroups": [
     {
@@ -14,6 +14,7 @@
         "/WarStuffApp/1033.9add2499d68cce2c.js",
         "/WarStuffApp/1118.1de0914d47e53e9f.js",
         "/WarStuffApp/1217.5dd82d4550c1234a.js",
+        "/WarStuffApp/1296.0470bdebe44ce018.js",
         "/WarStuffApp/1536.c99fcb9bc87c26f2.js",
         "/WarStuffApp/1709.97b2bf129c856811.js",
         "/WarStuffApp/2073.753fc04dbd6039b7.js",
@@ -47,7 +48,6 @@
         "/WarStuffApp/6560.048516eb1d24be2c.js",
         "/WarStuffApp/657.b1ba8c09f49bfeaa.js",
         "/WarStuffApp/6902.78b9ce2ca28efc1c.js",
-        "/WarStuffApp/7162.0ca0c8c5dda8c419.js",
         "/WarStuffApp/7329.f006eb23011ca91e.js",
         "/WarStuffApp/7544.251a27f010cf5138.js",
         "/WarStuffApp/7602.61b4cca3aa638a42.js",
@@ -70,12 +70,12 @@
         "/WarStuffApp/9958.00f537910971e39b.js",
         "/WarStuffApp/common.2237fd2d873e8097.js",
         "/WarStuffApp/index.html",
-        "/WarStuffApp/main.ee8900f577546ab8.js",
+        "/WarStuffApp/main.47922ec1068edaa3.js",
         "/WarStuffApp/manifest.webmanifest",
         "/WarStuffApp/polyfills-core-js.9b71ceed1de7450c.js",
         "/WarStuffApp/polyfills-dom.5c5f23fb57b03028.js",
         "/WarStuffApp/polyfills.d4788768f8be496e.js",
-        "/WarStuffApp/runtime.13689cf1159eda45.js",
+        "/WarStuffApp/runtime.75a174837837013d.js",
         "/WarStuffApp/styles.965386fe6782e473.css"
       ],
       "patterns": []
@@ -108,6 +108,7 @@
     "/WarStuffApp/1033.9add2499d68cce2c.js": "e22b563ed4ae2ae51e5953e13a61799428fcb5f7",
     "/WarStuffApp/1118.1de0914d47e53e9f.js": "70261756e8ce7af202291b2be092f721bf2d63b1",
     "/WarStuffApp/1217.5dd82d4550c1234a.js": "a48cc572d08089b46f3ec48f5082409daba2f68f",
+    "/WarStuffApp/1296.0470bdebe44ce018.js": "6320fac9cfb374f3d06a54510b3b6e4300625b2b",
     "/WarStuffApp/1536.c99fcb9bc87c26f2.js": "e65d31ac19f8988c14a57918c5b4092a5ca9cf3c",
     "/WarStuffApp/1709.97b2bf129c856811.js": "6f03cc9e51849129650759965ce44617b64fa898",
     "/WarStuffApp/2073.753fc04dbd6039b7.js": "77a143bc09b0fe17d2f70dce8759540c3ddf259c",
@@ -141,7 +142,6 @@
     "/WarStuffApp/6560.048516eb1d24be2c.js": "b4a8e4192eab0d6aefae6948e1309e42e38d5f1a",
     "/WarStuffApp/657.b1ba8c09f49bfeaa.js": "cb8c8a94204434b1a698fb9f1175e5b6d29ecd09",
     "/WarStuffApp/6902.78b9ce2ca28efc1c.js": "e66cdfa504febdc9126e286a14fa0b477af07b5e",
-    "/WarStuffApp/7162.0ca0c8c5dda8c419.js": "2e880fa5d12d641dd8d990fe6c8acfa9e23531b4",
     "/WarStuffApp/7329.f006eb23011ca91e.js": "74304e740f5fbcce05ad3abe1f92990b22959bf0",
     "/WarStuffApp/7544.251a27f010cf5138.js": "8888cf2f999d80849d11d6c73ef5ec7595fd4508",
     "/WarStuffApp/7602.61b4cca3aa638a42.js": "d6f662207a758419017ed425c7d630022b860133",
@@ -174,13 +174,13 @@
     "/WarStuffApp/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/WarStuffApp/assets/shapes.svg": "5413e95adabcb2cb639970051f55e0ddb64ace53",
     "/WarStuffApp/common.2237fd2d873e8097.js": "23ea00f4dc80d0a8116d98a43461826a411b5499",
-    "/WarStuffApp/index.html": "8e4dd2205195df85750e259c28c9525e33ce962a",
-    "/WarStuffApp/main.ee8900f577546ab8.js": "74e15a63fa5038fbaeb48df694a30ea41e658cee",
+    "/WarStuffApp/index.html": "dbfea4d32c7a10b42e6d8a572470e774e7ee1d59",
+    "/WarStuffApp/main.47922ec1068edaa3.js": "717737bfacc22ed1a1197fdde5a20e36f439dc5e",
     "/WarStuffApp/manifest.webmanifest": "bf46c79532ced618d885223540385ac2be1e482f",
     "/WarStuffApp/polyfills-core-js.9b71ceed1de7450c.js": "468569373464d87d7b70e6e53a64e3de1e487d3f",
     "/WarStuffApp/polyfills-dom.5c5f23fb57b03028.js": "06f5dc30f55bf9a3d9c6f9bca07c0041a6bbdaa0",
     "/WarStuffApp/polyfills.d4788768f8be496e.js": "3cda53753ebe9ab6bb6fe6beb032e1a967ca5567",
-    "/WarStuffApp/runtime.13689cf1159eda45.js": "ce724aeea39e860c81f72e207ee18a3f24bea21f",
+    "/WarStuffApp/runtime.75a174837837013d.js": "08e3a5777713e6037789bf743f2723cf74171332",
     "/WarStuffApp/styles.965386fe6782e473.css": "db59c72db59d9833b7a1bf35f7cc04b21012f3d8"
   },
   "navigationUrls": [
