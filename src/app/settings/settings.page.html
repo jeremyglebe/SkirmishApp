@@ -16,8 +16,7 @@
     ></ion-toggle>
   </ion-item>
   <ion-item *ngIf="showEnhancedUnitCostDescription">
-    <ion-textarea label="Enhanced Unit Cost Rule Description">
-      <br />
+    <p>
       The Enhanced Unit Cost Rule is an optional rule that adds an additional
       cost to a unit's total cost based on the number of special rules it has.
       <br /><br />
@@ -28,7 +27,7 @@
       This rule is intended to provide a more balanced cost structure for units
       with many special rules, and to encourage players to choose a smaller
       number of high-impact special rules rather than many low-impact ones.
-    </ion-textarea>
+    </p>
   </ion-item>
   <ion-button expand="block" (click)="exportData()">Export Data</ion-button>
   <ion-button expand="block" (click)="importData()">Import Data</ion-button>
