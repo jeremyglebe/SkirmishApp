@@ -6,10 +6,29 @@
 
 <ion-content>
   <ion-item>App Deployment: {{appDeployment}}</ion-item>
-  <ion-item>
+  <ion-item (click)="toggleEnhancedUnitCostDescription($event)">
     <ion-label>Enhanced Unit Cost Rule</ion-label>
-    <ion-toggle slot="end" [(ngModel)]="enhancedUnitCostRule"
-      (ionChange)="onEnhancedUnitCostRuleToggleChange($event)"></ion-toggle>
+    <ion-toggle
+      slot="end"
+      aria-label="Toggle Enhanced Unit Cost Rule"
+      [(ngModel)]="enhancedUnitCostRule"
+      (ionChange)="onEnhancedUnitCostRuleToggleChange($event)"
+    ></ion-toggle>
+  </ion-item>
+  <ion-item *ngIf="showEnhancedUnitCostDescription">
+    <ion-textarea label="Enhanced Unit Cost Rule Description">
+      <br />
+      The Enhanced Unit Cost Rule is an optional rule that adds an additional
+      cost to a unit's total cost based on the number of special rules it has.
+      <br /><br />
+      The additional cost is calculated as ((number of special rules) - 3) * 10.
+      This rule only applies to special rules with non-negative cost and only if
+      the number of special rules with non-negative cost exceeds 3.
+      <br /><br />
+      This rule is intended to provide a more balanced cost structure for units
+      with many special rules, and to encourage players to choose a smaller
+      number of high-impact special rules rather than many low-impact ones.
+    </ion-textarea>
   </ion-item>
   <ion-button expand="block" (click)="exportData()">Export Data</ion-button>
   <ion-button expand="block" (click)="importData()">Import Data</ion-button>

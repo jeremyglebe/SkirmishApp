@@ -15,6 +15,7 @@ import { APP_DEPLOYMENT } from '../data/app_info';
 export class SettingsPage implements OnInit, OnDestroy {
   enhancedUnitCostRule: boolean = false;
   appDeployment: string = APP_DEPLOYMENT;
+  showEnhancedUnitCostDescription: boolean = false;
 
   constructor(public unitService: UnitService) {}
 
@@ -70,5 +71,11 @@ export class SettingsPage implements OnInit, OnDestroy {
       }
     });
     fileInput.click();
+  }
+
+  toggleEnhancedUnitCostDescription(event: MouseEvent) {
+    if ((event.target as HTMLElement).tagName !== 'ION-TOGGLE') {
+      this.showEnhancedUnitCostDescription = !this.showEnhancedUnitCostDescription;
+    }
   }
 }
