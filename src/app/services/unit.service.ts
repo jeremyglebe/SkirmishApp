@@ -51,19 +51,42 @@ export class UnitService {
    */
   calcUnitCost(unit: Unit): number {
     this.checkInitialization();
-    let cost = QUALITY_COSTS[unit.quality];
-    const specialRuleCount = unit.specialRules.length;
-
-    for (let i = 0; i < specialRuleCount; i++) {
+    // The base cost of the unit based on its quality
+    let unitCost = QUALITY_COSTS[unit.quality];
+    // The total number of special rules the unit has
+    const numberOfSpecialRules = unit.specialRules.length;
+    // The number of allowed (non-negative cost) special rules before enhanced
+    // cost kicks in (if the user has enabled the enhanced cost rule)
+    const maximumRulesBeforeEnhancedCost = 3;
+    // Counter for the number of special rules with non-negative cost
+    // (Used in enhanced cost calculation)
+    let nonNegativeSpecialRuleCount = 0;
+    // Iterate through each special rule and add its cost to the total cost
+    for (let i = 0; i < numberOfSpecialRules; i++) {
       const rule = unit.specialRules[i];
-      cost += rule.cost;
-
-      if (this.enhancedUnitCostRule && i >= 3) {
-        cost += (i - 2) * 10;
+      // If the cost is non-negative
+      if (rule.cost >= 0) {
+        // Increment the counter for the number of special rules with non-negative cost
+        nonNegativeSpecialRuleCount++;
+        // If the enhanced cost rule is enabled and the number of special rules with
+        // non-negative cost exceeds the maximum allowed, add the enhanced cost
+        if (
+          this.enhancedUnitCostRule &&
+          nonNegativeSpecialRuleCount > maximumRulesBeforeEnhancedCost
+        ) {
+          unitCost +=
+            (nonNegativeSpecialRuleCount - maximumRulesBeforeEnhancedCost) * 10;
+        }
+        // Add the cost of the special rule to the total cost
+        unitCost += rule.cost;
+      }
+      // If the cost is negative, it should be added directly and not contribute
+      // towards the enhanced cost calculation
+      else {
+        unitCost += rule.cost;
       }
     }
-
-    return cost;
+    return unitCost;
   }
 
   /**
