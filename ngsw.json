@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1686695525754,
+  "timestamp": 1686698187447,
   "index": "/WarStuffApp/index.html",
   "assetGroups": [
     {
@@ -14,7 +14,7 @@
         "/WarStuffApp/1033.9add2499d68cce2c.js",
         "/WarStuffApp/1118.1de0914d47e53e9f.js",
         "/WarStuffApp/1217.5dd82d4550c1234a.js",
-        "/WarStuffApp/1296.4197423e74ad7b65.js",
+        "/WarStuffApp/1296.a7a33ccb14a385db.js",
         "/WarStuffApp/1536.c99fcb9bc87c26f2.js",
         "/WarStuffApp/1709.97b2bf129c856811.js",
         "/WarStuffApp/2073.753fc04dbd6039b7.js",
@@ -25,7 +25,7 @@
         "/WarStuffApp/2933.79c22d41e6513076.js",
         "/WarStuffApp/3326.e33875649afaf521.js",
         "/WarStuffApp/3583.93d5443c0f7e92b9.js",
-        "/WarStuffApp/3610.9a9c7fa6da45275b.js",
+        "/WarStuffApp/3610.369e95ff831a2550.js",
         "/WarStuffApp/3648.35fa4587da9375e9.js",
         "/WarStuffApp/3804.13888b134ca6ed17.js",
         "/WarStuffApp/388.b907da1a4ad3c63c.js",
@@ -75,7 +75,7 @@
         "/WarStuffApp/polyfills-core-js.9b71ceed1de7450c.js",
         "/WarStuffApp/polyfills-dom.5c5f23fb57b03028.js",
         "/WarStuffApp/polyfills.d4788768f8be496e.js",
-        "/WarStuffApp/runtime.ed3ed837048ba3e3.js",
+        "/WarStuffApp/runtime.a2a352046271a836.js",
         "/WarStuffApp/styles.965386fe6782e473.css"
       ],
       "patterns": []
@@ -107,7 +107,7 @@
     "/WarStuffApp/1033.9add2499d68cce2c.js": "e22b563ed4ae2ae51e5953e13a61799428fcb5f7",
     "/WarStuffApp/1118.1de0914d47e53e9f.js": "70261756e8ce7af202291b2be092f721bf2d63b1",
     "/WarStuffApp/1217.5dd82d4550c1234a.js": "a48cc572d08089b46f3ec48f5082409daba2f68f",
-    "/WarStuffApp/1296.4197423e74ad7b65.js": "735b8f10144501307323f397f99a31a61d046cf0",
+    "/WarStuffApp/1296.a7a33ccb14a385db.js": "687650cfb4addc9296b661a6442015410f6c81f0",
     "/WarStuffApp/1536.c99fcb9bc87c26f2.js": "e65d31ac19f8988c14a57918c5b4092a5ca9cf3c",
     "/WarStuffApp/1709.97b2bf129c856811.js": "6f03cc9e51849129650759965ce44617b64fa898",
     "/WarStuffApp/2073.753fc04dbd6039b7.js": "77a143bc09b0fe17d2f70dce8759540c3ddf259c",
@@ -118,7 +118,7 @@
     "/WarStuffApp/2933.79c22d41e6513076.js": "289a30762702c32382f52b9bb9c4fd2802f2fb83",
     "/WarStuffApp/3326.e33875649afaf521.js": "65dd2347e19f9053b4fdcc9f921288972626d2ab",
     "/WarStuffApp/3583.93d5443c0f7e92b9.js": "08744b75adc438b0194787906d5381cf8e00cfa5",
-    "/WarStuffApp/3610.9a9c7fa6da45275b.js": "4d817f21c0fe75778f824c8b4da88de51dc88608",
+    "/WarStuffApp/3610.369e95ff831a2550.js": "0b9e04c6bd9813585a89eeebee5bda76a76ffab1",
     "/WarStuffApp/3648.35fa4587da9375e9.js": "cbc3d1c2c6573279c2660e103f77e12120a41d7a",
     "/WarStuffApp/3804.13888b134ca6ed17.js": "77ac5c07dd64d2efc75d91a4702ba649ee54e608",
     "/WarStuffApp/388.b907da1a4ad3c63c.js": "6537d68a554014c54d538474d122e8b1388263d0",
@@ -172,13 +172,13 @@
     "/WarStuffApp/assets/icons/icon-72x72.png": "31d392eb563aaf7fcbf27864a98184cf4d65a320",
     "/WarStuffApp/assets/icons/icon-96x96.png": "64b505df84e7f9a9bfe7f1bae7a5cb4789fa4853",
     "/WarStuffApp/common.5bed9a58b6d8fd25.js": "e012dff6518073792d13cb2ee4b286bba9ce63b9",
-    "/WarStuffApp/index.html": "67a682b61e4fe81c51a9006ae203dd5c33076462",
+    "/WarStuffApp/index.html": "6d6c57b4d050302c02ef364d032d183d873bacbf",
     "/WarStuffApp/main.47922ec1068edaa3.js": "717737bfacc22ed1a1197fdde5a20e36f439dc5e",
     "/WarStuffApp/manifest.webmanifest": "589971a1beea9308c30adb94fd8cbe4b88bd34c0",
     "/WarStuffApp/polyfills-core-js.9b71ceed1de7450c.js": "468569373464d87d7b70e6e53a64e3de1e487d3f",
     "/WarStuffApp/polyfills-dom.5c5f23fb57b03028.js": "06f5dc30f55bf9a3d9c6f9bca07c0041a6bbdaa0",
     "/WarStuffApp/polyfills.d4788768f8be496e.js": "3cda53753ebe9ab6bb6fe6beb032e1a967ca5567",
-    "/WarStuffApp/runtime.ed3ed837048ba3e3.js": "a9fb7f920c6418864234472798ad7a83deba2fde",
+    "/WarStuffApp/runtime.a2a352046271a836.js": "edcc847af53bd27646e53f3aa98cbafef3d0cdcf",
     "/WarStuffApp/styles.965386fe6782e473.css": "db59c72db59d9833b7a1bf35f7cc04b21012f3d8"
   },
   "navigationUrls": [
