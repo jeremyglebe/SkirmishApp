@@ -84,14 +84,14 @@ export class UnitsListPage implements OnInit, OnDestroy {
                 {
                   text: 'No',
                   handler: () => {
-                    this.unitService.purgeUnit(unit);
+                    this.unitService.deleteUnit(unit);
                     this.units = this.unitService.getUnits();
                   },
                 },
                 {
                   text: 'Yes, purge from all my warbands',
                   handler: () => {
-                    this.unitService.deleteUnit(unit);
+                    this.unitService.purgeUnit(unit);
                     this.units = this.unitService.getUnits();
                   },
                 },
