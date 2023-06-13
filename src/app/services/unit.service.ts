@@ -134,11 +134,27 @@ export class UnitService {
     return JSON.stringify(data, null, 2);
   }
 
+  async importAndMergeData(jsonString: string): Promise<boolean> {
+    this.checkInitialization();
+    try {
+      const data = JSON.parse(jsonString);
+      this.units = this.units.concat(data.units);
+      this.warbands = this.warbands.concat(data.warbands);
+      await this.storage.set('units', this.units);
+      await this.storage.set('warbands', this.warbands);
+      this.changes.emit();
+      return true;
+    } catch (error) {
+      console.error('Error importing data:', error);
+      return false;
+    }
+  }
+
   /**
    * Imports unit and warband data from a JSON string and saves it to storage.
    * Returns true if the import is successful, and false otherwise.
    */
-  async importData(jsonString: string): Promise<boolean> {
+  async importAndOverwriteData(jsonString: string): Promise<boolean> {
     this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { AlertController, IonicModule } from '@ionic/angular';
 import { UnitService } from '../services/unit.service';
 import { APP_DEPLOYMENT } from '../data/app_info';
 
@@ -17,7 +17,10 @@ export class SettingsPage implements OnInit, OnDestroy {
   appDeployment: string = APP_DEPLOYMENT;
   showEnhancedUnitCostDescription: boolean = false;
 
-  constructor(public unitService: UnitService) {}
+  constructor(
+    public unitService: UnitService,
+    private alertController: AlertController
+  ) {}
 
   async ngOnInit() {
     // Retrieve existing settings from the unit service
@@ -60,7 +63,7 @@ export class SettingsPage implements OnInit, OnDestroy {
         const reader = new FileReader();
         reader.onload = async (e) => {
           const jsonString = (e.target?.result as string) ?? '';
-          const success = await this.unitService.importData(jsonString);
+          const success = await this.unitService.importAndMergeData(jsonString);
           if (success) {
             console.log('Data imported successfully');
           } else {
@@ -73,9 +76,53 @@ export class SettingsPage implements OnInit, OnDestroy {
     fileInput.click();
   }
 
+  async overwriteData() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    // fileInput.accept = '.json';
+    // fileInput.accept = '*/*';
+    fileInput.addEventListener('change', async (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const jsonString = (e.target?.result as string) ?? '';
+          // Once the data has been loaded, confirm that the user wants to overwrite their data
+          const confirmAlert = await this.alertController.create({
+            header: 'Confirm Overwrite',
+            message: 'Are you sure you want to overwrite your data?',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+              },
+              {
+                text: 'Overwrite',
+                handler: async () => {
+                  const success = await this.unitService.importAndOverwriteData(
+                    jsonString
+                  );
+                  if (success) {
+                    console.log('Data imported successfully');
+                  } else {
+                    console.error('Error importing data');
+                  }
+                },
+              },
+            ],
+          });
+          await confirmAlert.present();
+        };
+        reader.readAsText(file);
+      }
+    });
+    fileInput.click();
+  }
+
   toggleEnhancedUnitCostDescription(event: MouseEvent) {
     if ((event.target as HTMLElement).tagName !== 'ION-TOGGLE') {
-      this.showEnhancedUnitCostDescription = !this.showEnhancedUnitCostDescription;
+      this.showEnhancedUnitCostDescription =
+        !this.showEnhancedUnitCostDescription;
     }
   }
 }
