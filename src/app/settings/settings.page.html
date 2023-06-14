@@ -29,6 +29,8 @@
       number of high-impact special rules rather than many low-impact ones.
     </p>
   </ion-item>
+
+  <!-- Data File Functions -->
   <ion-list-header>Data File Functions</ion-list-header>
   <ion-button expand="block" (click)="exportData()">Export To File</ion-button>
   <ion-button expand="block" (click)="importData()"
@@ -40,6 +42,26 @@
   <ion-button expand="block" color="secondary" (click)="importWarbands()"
     >Import And Merge Warbands</ion-button
   >
+
+  <!-- Peer Data Functions -->
+  <ion-list-header>Peer Data Functions</ion-list-header>
+  <!-- Ion Toggle for initiating peer service -->
+  <ion-item>
+    <ion-label>Enable Peer Service</ion-label>
+    <ion-toggle
+      slot="end"
+      aria-label="Toggle Peer Service"
+      [(ngModel)]="peerConnectionsEnabled"
+      (ionChange)="onPeerConnectionsToggleChange($event)"
+    ></ion-toggle>
+  </ion-item>
+  <!-- Show the user's id if peer connections are enabled -->
+  <ion-item *ngIf="peerConnectionEstablished">
+    <ion-label>Peer Id</ion-label>
+    <p>{{peerId}}</p>
+  </ion-item>
+
+  <!-- Dangerous Data Functions -->
   <ion-list-header>Dangerous Data Functions</ion-list-header>
   <ion-button expand="block" color="warning" (click)="overwriteData()"
     >Overwrite With File</ion-button

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AlertController, IonicModule } from '@ionic/angular';
 import { UnitService } from '../services/unit.service';
 import { APP_DEPLOYMENT } from '../data/app_info';
+import { PeerService } from '../services/peer.service';
 
 @Component({
   selector: 'app-settings',
@@ -14,12 +15,16 @@ import { APP_DEPLOYMENT } from '../data/app_info';
 })
 export class SettingsPage implements OnInit, OnDestroy {
   enhancedUnitCostRule: boolean = false;
+  peerConnectionsEnabled: boolean = false;
+  peerConnectionEstablished: boolean = false;
   appDeployment: string = APP_DEPLOYMENT;
   showEnhancedUnitCostDescription: boolean = false;
+  peerId: string = '';
 
   constructor(
     public unitService: UnitService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private p2p: PeerService
   ) {}
 
   async ngOnInit() {
@@ -36,6 +41,45 @@ export class SettingsPage implements OnInit, OnDestroy {
   async ngOnDestroy() {
     // Unsubscribe from changes in the unit service
     this.unitService.changes.unsubscribe();
+  }
+
+  async onPeerConnectionsToggleChange(event: Event) {
+    const value = (<CustomEvent>event).detail.checked;
+    if (value) {
+      const alert = await this.alertController.create({
+        header: 'Peer Connections',
+        message:
+          'Peer connections are experimental and may not work as expected. ' +
+          'Use at your own risk.',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              this.peerConnectionsEnabled = false;
+              this.peerConnectionEstablished = false;
+            },
+          },
+          {
+            text: 'Enable',
+            handler: () => {
+              this.p2p.initialize();
+              this.p2p.open.subscribe(() => {
+                console.log('Peer connections enabled!');
+                this.peerConnectionEstablished = true;
+                this.peerId = this.p2p.id;
+              });
+            },
+          },
+        ],
+      });
+      await alert.present();
+    } else {
+      this.p2p.destroy();
+      this.peerConnectionsEnabled = false;
+      this.peerConnectionEstablished = false;
+      this.peerId = '';
+    }
   }
 
   async onEnhancedUnitCostRuleToggleChange(event: Event) {

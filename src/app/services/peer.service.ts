@@ -31,6 +31,15 @@ export class PeerService {
     });
   }
 
+  async destroy(): Promise<void> {
+    if (!this._startedInitialization) return;
+    this._startedInitialization = false;
+    this.p2p!.destroy();
+    this.p2p = null;
+    this.open.unsubscribe();
+    this.open = new EventEmitter<void>();
+  }
+
   /**
    * Ensures that the PeerService has been initialized before use.
    */
