@@ -43,6 +43,13 @@ export class SettingsPage implements OnInit, OnDestroy {
     await this.unitService.setEnhancedUnitCostRule(value);
   }
 
+  toggleEnhancedUnitCostDescription(event: MouseEvent) {
+    if ((event.target as HTMLElement).tagName !== 'ION-TOGGLE') {
+      this.showEnhancedUnitCostDescription =
+        !this.showEnhancedUnitCostDescription;
+    }
+  }
+
   async exportData() {
     const data = this.unitService.exportData();
     const blob = new Blob([data], { type: 'text/plain;charset=utf-8' });
@@ -64,6 +71,58 @@ export class SettingsPage implements OnInit, OnDestroy {
         reader.onload = async (e) => {
           const jsonString = (e.target?.result as string) ?? '';
           const success = await this.unitService.importAndMergeData(jsonString);
+          if (success) {
+            console.log('Data imported successfully');
+          } else {
+            console.error('Error importing data');
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+    fileInput.click();
+  }
+
+  async importUnits() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    // fileInput.accept = '.json';
+    // fileInput.accept = '*/*';
+    fileInput.addEventListener('change', async (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const jsonString = (e.target?.result as string) ?? '';
+          const success = await this.unitService.importAndMergeUnitsOnly(
+            jsonString
+          );
+          if (success) {
+            console.log('Data imported successfully');
+          } else {
+            console.error('Error importing data');
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+    fileInput.click();
+  }
+
+  async importWarbands() {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    // fileInput.accept = '.json';
+    // fileInput.accept = '*/*';
+    fileInput.addEventListener('change', async (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const jsonString = (e.target?.result as string) ?? '';
+          const success = await this.unitService.importAndMergeWarbandsOnly(
+            jsonString
+          );
           if (success) {
             console.log('Data imported successfully');
           } else {
@@ -119,10 +178,28 @@ export class SettingsPage implements OnInit, OnDestroy {
     fileInput.click();
   }
 
-  toggleEnhancedUnitCostDescription(event: MouseEvent) {
-    if ((event.target as HTMLElement).tagName !== 'ION-TOGGLE') {
-      this.showEnhancedUnitCostDescription =
-        !this.showEnhancedUnitCostDescription;
-    }
+  deleteData() {
+    // Confirm that the user wants to delete their data
+    this.alertController
+      .create({
+        header: 'Confirm Delete',
+        message: 'Are you sure you want to delete your data?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+          },
+          {
+            text: 'Delete',
+            handler: async () => {
+              await this.unitService.clearUnits();
+              await this.unitService.clearWarbands();
+              await this.unitService.setEnhancedUnitCostRule(false);
+              console.log('Data deleted successfully');
+            },
+          },
+        ],
+      })
+      .then((alert) => alert.present());
   }
 }

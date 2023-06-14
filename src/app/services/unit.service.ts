@@ -113,6 +113,7 @@ export class UnitService {
     this.checkInitialization();
     this.enhancedUnitCostRule = value;
     await this.storage.set('enhancedUnitCostRule', value);
+    this.changes.emit();
   }
 
   async getEnhancedUnitCostRule(): Promise<boolean> {
@@ -141,6 +142,34 @@ export class UnitService {
       this.units = this.units.concat(data.units);
       this.warbands = this.warbands.concat(data.warbands);
       await this.storage.set('units', this.units);
+      await this.storage.set('warbands', this.warbands);
+      this.changes.emit();
+      return true;
+    } catch (error) {
+      console.error('Error importing data:', error);
+      return false;
+    }
+  }
+
+  async importAndMergeUnitsOnly(jsonString: string): Promise<boolean> {
+    this.checkInitialization();
+    try {
+      const data = JSON.parse(jsonString);
+      this.units = this.units.concat(data.units);
+      await this.storage.set('units', this.units);
+      this.changes.emit();
+      return true;
+    } catch (error) {
+      console.error('Error importing data:', error);
+      return false;
+    }
+  }
+
+  async importAndMergeWarbandsOnly(jsonString: string): Promise<boolean> {
+    this.checkInitialization();
+    try {
+      const data = JSON.parse(jsonString);
+      this.warbands = this.warbands.concat(data.warbands);
       await this.storage.set('warbands', this.warbands);
       this.changes.emit();
       return true;
@@ -233,6 +262,7 @@ export class UnitService {
     this.checkInitialization();
     await this.storage.remove('units');
     this.units = [];
+    this.changes.emit();
   }
 
   async updateUnit(updatedUnit: Unit): Promise<void> {
@@ -327,5 +357,6 @@ export class UnitService {
     this.checkInitialization();
     await this.storage.remove('warbands');
     this.warbands = [];
+    this.changes.emit();
   }
 }

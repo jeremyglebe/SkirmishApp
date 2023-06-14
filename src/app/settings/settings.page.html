@@ -29,7 +29,22 @@
       number of high-impact special rules rather than many low-impact ones.
     </p>
   </ion-item>
-  <ion-button expand="block" (click)="exportData()">Export My Data To File</ion-button>
-  <ion-button expand="block" (click)="importData()">Import And Merge Data From File</ion-button>
-  <ion-button expand="block" (click)="overwriteData()">Overwrite My Data With File</ion-button>
+  <ion-list-header>Data File Functions</ion-list-header>
+  <ion-button expand="block" (click)="exportData()">Export To File</ion-button>
+  <ion-button expand="block" (click)="importData()"
+    >Import And Merge All Data</ion-button
+  >
+  <ion-button expand="block" color="secondary" (click)="importUnits()"
+    >Import And Merge Units</ion-button
+  >
+  <ion-button expand="block" color="secondary" (click)="importWarbands()"
+    >Import And Merge Warbands</ion-button
+  >
+  <ion-list-header>Dangerous Data Functions</ion-list-header>
+  <ion-button expand="block" color="warning" (click)="overwriteData()"
+    >Overwrite With File</ion-button
+  >
+  <ion-button expand="block" color="danger" (click)="deleteData()"
+    >Delete All Data</ion-button
+  >
 </ion-content>
