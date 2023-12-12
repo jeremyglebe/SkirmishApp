@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Unit, Warband } from '../data/models';
 import { Storage } from '@ionic/storage-angular';
-import { QUALITY_COSTS } from '../data/core_rules';
+import { RANK_COSTS } from '../data/core_rules';
 
 /**
  * UnitService is a service class that handles all interactions with units and warbands.
@@ -47,12 +47,12 @@ export class UnitService {
   }
 
   /**
-   * Calculates the cost of a single unit based on its quality and edges.
+   * Calculates the cost of a single unit based on its rank and edges.
    */
   calcUnitCost(unit: Unit): number {
     this.checkInitialization();
-    // The base cost of the unit based on its quality
-    let unitCost = QUALITY_COSTS[unit.quality];
+    // The base cost of the unit based on its rank
+    let unitCost = RANK_COSTS[unit.rank];
     // The total number of edges the unit has
     const numberOfEdges = unit.edges.length;
     // The number of allowed (positive cost) edges before enhanced
@@ -102,11 +102,11 @@ export class UnitService {
   }
 
   /**
-   * Retrieves the cost of a unit's quality.
+   * Retrieves the cost of a unit's rank.
    */
-  getQualityCost(unit: Unit): number {
+  getRankCost(unit: Unit): number {
     this.checkInitialization();
-    return QUALITY_COSTS[unit.quality];
+    return RANK_COSTS[unit.rank];
   }
 
   async setEnhancedUnitCostRule(value: boolean): Promise<void> {

@@ -7,7 +7,7 @@ export interface Edge {
 export interface Unit {
   id: string;
   name: string;
-  quality: number;
+  rank: number;
   edges: Edge[];
   image?: string; // Optional property for unit image
 }

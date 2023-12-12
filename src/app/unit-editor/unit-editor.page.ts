@@ -15,7 +15,7 @@ import { Edge, Unit } from '../data/models';
 import { EDGES_LIST } from '../data/edges';
 import { CommonModule } from '@angular/common';
 import { UnitService } from '../services/unit.service';
-import { QUALITY_COSTS } from '../data/core_rules';
+import { RANK_COSTS } from '../data/core_rules';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -31,7 +31,7 @@ export class UnitEditorPage {
 
   paramID: string | null = null;
   unitForm: FormGroup;
-  qualityOptions: { value: number; cost: number }[] = [];
+  rankOptions: { value: number; cost: number }[] = [];
   edges: Edge[] = EDGES_LIST;
   edgesSelected: Edge[] = [];
   expandedRules: string[] = [];
@@ -43,17 +43,17 @@ export class UnitEditorPage {
     private unitService: UnitService,
     private route: ActivatedRoute
   ) {
-    // Create the quality options from the QUALITY_COSTS object
-    for (let quality in QUALITY_COSTS) {
-      this.qualityOptions.push({
-        value: parseInt(quality),
-        cost: QUALITY_COSTS[quality],
+    // Create the rank options from the RANK_COSTS object
+    for (let rank in RANK_COSTS) {
+      this.rankOptions.push({
+        value: parseInt(rank),
+        cost: RANK_COSTS[rank],
       });
     }
     // Create the form group
     this.unitForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      quality: new FormControl('', Validators.required),
+      rank: new FormControl('', Validators.required),
       edges: new FormControl([]),
       image: new FormControl(''),
     });
@@ -67,8 +67,8 @@ export class UnitEditorPage {
       if (ogUnit) {
         this.unitForm.patchValue({
           name: ogUnit.name,
-          quality: this.qualityOptions.find(
-            (option) => option.value === ogUnit!.quality
+          rank: this.rankOptions.find(
+            (option) => option.value === ogUnit!.rank
           ),
           edges: ogUnit.edges,
           image: ogUnit.image,
@@ -85,7 +85,7 @@ export class UnitEditorPage {
         ? this.paramID!
         : Math.random().toString(36).substring(2, 9),
       name: submission.name,
-      quality: submission.quality.value,
+      rank: submission.rank.value,
       edges: submission.edges,
       image: submission.image,
     };

@@ -152,7 +152,7 @@ export const EDGES_LIST: Edge[] = [
   {
     name: 'Hero',
     description:
-      'Friendly units within 12" of this unit may use its quality for morale tests unless it is Stunned.',
+      'Friendly units within 12" of this unit may use its rank for morale tests unless it is Stunned.',
     cost: 5,
   },
   {

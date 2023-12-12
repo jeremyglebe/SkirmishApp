@@ -33,7 +33,7 @@
       </ion-avatar>
       <ion-checkbox [checked]="isUnitInWarband(unit)" (ionChange)="toggleUnitSelection(unit)" labelPlacement="start">
         {{ unit.name }}<br />
-        Quality: {{ unit.quality }}<br />
+        Rank: {{ unit.rank }}<br />
         Cost: {{ unitService.calcUnitCost(unit) }}pts
       </ion-checkbox>
       <ion-input *ngIf="isUnitInWarband(unit)" type="number" min="1" (input)="onUnitCountInput(unit.id, $event)"
@@ -50,7 +50,7 @@
       </ion-avatar>
       <ion-checkbox [checked]="isUnitInWarband(unit)" (ionChange)="toggleUnitSelection(unit)" labelPlacement="start">
         {{ unit.name }}<br />
-        Quality: {{ unit.quality }}<br />
+        Rank: {{ unit.rank }}<br />
         Cost: {{ unitService.calcUnitCost(unit) }}pts
       </ion-checkbox>
       <ion-input *ngIf="isUnitInWarband(unit)" type="number" min="1" (input)="onUnitCountInput(unit.id, $event)"

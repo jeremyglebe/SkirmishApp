@@ -12,7 +12,7 @@
     <img [src]="unit.image || 'assets/default-unit-image.png'" alt="{{ unit.name }} image" class="unit-image" />
     <div class="unit-info-text">
       <p>Total Cost: {{ unitService.calcUnitCost(unit) }}pts</p>
-      <p>Quality: {{ unit.quality }}+ ({{ unitService.getQualityCost(unit) }}pts)</p>
+      <p>Rank: {{ unit.rank }}+ ({{ unitService.getRankCost(unit) }}pts)</p>
       <p>Edges:</p>
       <ul>
         <li *ngFor="let rule of unit.edges">
