@@ -31,7 +31,7 @@
 
             <div id="rules-list" *ngIf="showRules">
                 <ion-item *ngFor="let rule of edges">
-                    <div (click)="toggleRuleExpansion(rule)" style="flex: 1;">
+                    <div (click)="toggleEdgeExpansion(rule)" style="flex: 1;">
                         <div>{{ rule.name }} ({{ rule.cost }}pts)</div>
                         <div *ngIf="expandedRules.includes(rule.name)" style="margin-left:20px">
                             <p>{{ rule.description }}</p>
