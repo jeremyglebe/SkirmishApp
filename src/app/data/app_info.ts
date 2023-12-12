@@ -1,1 +1,1 @@
-export const APP_DEPLOYMENT = '6/13/2023, 7:02:03 PM (CST)';
+export const APP_DEPLOYMENT = '12/12/2023, 12:50:50 PM (CST)';

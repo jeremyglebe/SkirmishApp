@@ -55,27 +55,27 @@ export class UnitService {
     let unitCost = QUALITY_COSTS[unit.quality];
     // The total number of edges the unit has
     const numberOfEdges = unit.edges.length;
-    // The number of allowed (non-negative cost) edges before enhanced
+    // The number of allowed (positive cost) edges before enhanced
     // cost kicks in (if the user has enabled the enhanced cost rule)
     const maximumEdgesBeforeEnhancedCost = 3;
-    // Counter for the number of edges with non-negative cost
+    // Counter for the number of edges with positive cost
     // (Used in enhanced cost calculation)
-    let nonNegativeEdgeCount = 0;
+    let positiveCostEdgeCount = 0;
     // Iterate through each edge and add its cost to the total cost
     for (let i = 0; i < numberOfEdges; i++) {
       const rule = unit.edges[i];
-      // If the cost is non-negative
-      if (rule.cost >= 0) {
-        // Increment the counter for the number of edges with non-negative cost
-        nonNegativeEdgeCount++;
+      // If the cost is positive
+      if (rule.cost > 0) {
+        // Increment the counter for the number of edges with positive cost
+        positiveCostEdgeCount++;
         // If the enhanced cost rule is enabled and the number of edges with
-        // non-negative cost exceeds the maximum allowed, add the enhanced cost
+        // positive cost exceeds the maximum allowed, add the enhanced cost
         if (
           this.enhancedUnitCostRule &&
-          nonNegativeEdgeCount > maximumEdgesBeforeEnhancedCost
+          positiveCostEdgeCount > maximumEdgesBeforeEnhancedCost
         ) {
           unitCost +=
-            (nonNegativeEdgeCount - maximumEdgesBeforeEnhancedCost) * 10;
+            (positiveCostEdgeCount - maximumEdgesBeforeEnhancedCost) * 10;
         }
         // Add the cost of the edge to the total cost
         unitCost += rule.cost;
