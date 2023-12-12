@@ -1,6 +1,6 @@
-import { SpecialRule } from './models';
+import { Edge } from './models';
 
-export const SPECIAL_RULES: SpecialRule[] = [
+export const EDGES_LIST: Edge[] = [
   {
     name: 'Armored',
     description:

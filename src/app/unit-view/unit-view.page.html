@@ -13,9 +13,9 @@
     <div class="unit-info-text">
       <p>Total Cost: {{ unitService.calcUnitCost(unit) }}pts</p>
       <p>Quality: {{ unit.quality }}+ ({{ unitService.getQualityCost(unit) }}pts)</p>
-      <p>Special Rules:</p>
+      <p>Edges:</p>
       <ul>
-        <li *ngFor="let rule of unit.specialRules">
+        <li *ngFor="let rule of unit.edges">
           {{ rule.name }} ({{ rule.cost }}pts): {{ rule.description }}
         </li>
       </ul>

@@ -1,4 +1,4 @@
-export interface SpecialRule {
+export interface Edge {
   name: string;
   description: string;
   cost: number;
@@ -8,7 +8,7 @@ export interface Unit {
   id: string;
   name: string;
   quality: number;
-  specialRules: SpecialRule[];
+  edges: Edge[];
   image?: string; // Optional property for unit image
 }
 

@@ -99,7 +99,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     const blob = new Blob([data], { type: 'text/plain;charset=utf-8' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'warstuff-backup.json';
+    link.download = 'skirmish-app-backup.json';
     link.click();
   }
 

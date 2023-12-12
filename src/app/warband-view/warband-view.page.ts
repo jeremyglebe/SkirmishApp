@@ -43,7 +43,7 @@ export class WarbandViewPage implements OnInit {
 
   unitRulesString(unit: Unit): string {
     const rules = [];
-    for(let rule of unit.specialRules) {
+    for(let rule of unit.edges) {
       rules.push(rule.name);
     }
     return rules.join(', ');

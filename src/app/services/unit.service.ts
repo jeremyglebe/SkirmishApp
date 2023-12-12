@@ -47,37 +47,37 @@ export class UnitService {
   }
 
   /**
-   * Calculates the cost of a single unit based on its quality and special rules.
+   * Calculates the cost of a single unit based on its quality and edges.
    */
   calcUnitCost(unit: Unit): number {
     this.checkInitialization();
     // The base cost of the unit based on its quality
     let unitCost = QUALITY_COSTS[unit.quality];
-    // The total number of special rules the unit has
-    const numberOfSpecialRules = unit.specialRules.length;
-    // The number of allowed (non-negative cost) special rules before enhanced
+    // The total number of edges the unit has
+    const numberOfEdges = unit.edges.length;
+    // The number of allowed (non-negative cost) edges before enhanced
     // cost kicks in (if the user has enabled the enhanced cost rule)
-    const maximumRulesBeforeEnhancedCost = 3;
-    // Counter for the number of special rules with non-negative cost
+    const maximumEdgesBeforeEnhancedCost = 3;
+    // Counter for the number of edges with non-negative cost
     // (Used in enhanced cost calculation)
-    let nonNegativeSpecialRuleCount = 0;
-    // Iterate through each special rule and add its cost to the total cost
-    for (let i = 0; i < numberOfSpecialRules; i++) {
-      const rule = unit.specialRules[i];
+    let nonNegativeEdgeCount = 0;
+    // Iterate through each edge and add its cost to the total cost
+    for (let i = 0; i < numberOfEdges; i++) {
+      const rule = unit.edges[i];
       // If the cost is non-negative
       if (rule.cost >= 0) {
-        // Increment the counter for the number of special rules with non-negative cost
-        nonNegativeSpecialRuleCount++;
-        // If the enhanced cost rule is enabled and the number of special rules with
+        // Increment the counter for the number of edges with non-negative cost
+        nonNegativeEdgeCount++;
+        // If the enhanced cost rule is enabled and the number of edges with
         // non-negative cost exceeds the maximum allowed, add the enhanced cost
         if (
           this.enhancedUnitCostRule &&
-          nonNegativeSpecialRuleCount > maximumRulesBeforeEnhancedCost
+          nonNegativeEdgeCount > maximumEdgesBeforeEnhancedCost
         ) {
           unitCost +=
-            (nonNegativeSpecialRuleCount - maximumRulesBeforeEnhancedCost) * 10;
+            (nonNegativeEdgeCount - maximumEdgesBeforeEnhancedCost) * 10;
         }
-        // Add the cost of the special rule to the total cost
+        // Add the cost of the edge to the total cost
         unitCost += rule.cost;
       }
       // If the cost is negative, it should be added directly and not contribute

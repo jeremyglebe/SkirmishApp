@@ -22,7 +22,7 @@ export class PeerService {
     this._startedInitialization = true;
     // Generate an id of random alphanumeric characters of length 6
     const id = Math.random().toString(36).substring(2, 8);
-    this.id = `warstuff-${id}`;
+    this.id = `skirmish-app-${id}`;
     // Create an instance of peerjs
     this.p2p = new Peer(this.id);
     // Alert the app when the peer connection is open

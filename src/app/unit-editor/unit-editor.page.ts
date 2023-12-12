@@ -11,8 +11,8 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { SpecialRule, Unit } from '../data/models';
-import { SPECIAL_RULES } from '../data/special_rules';
+import { Edge, Unit } from '../data/models';
+import { EDGES_LIST } from '../data/edges';
 import { CommonModule } from '@angular/common';
 import { UnitService } from '../services/unit.service';
 import { QUALITY_COSTS } from '../data/core_rules';
@@ -32,8 +32,8 @@ export class UnitEditorPage {
   paramID: string | null = null;
   unitForm: FormGroup;
   qualityOptions: { value: number; cost: number }[] = [];
-  specialRules: SpecialRule[] = SPECIAL_RULES;
-  specialRulesSelected: SpecialRule[] = [];
+  edges: Edge[] = EDGES_LIST;
+  edgesSelected: Edge[] = [];
   expandedRules: string[] = [];
   showRules: boolean = false;
   editing: boolean = false;
@@ -54,7 +54,7 @@ export class UnitEditorPage {
     this.unitForm = new FormGroup({
       name: new FormControl('', Validators.required),
       quality: new FormControl('', Validators.required),
-      specialRules: new FormControl([]),
+      edges: new FormControl([]),
       image: new FormControl(''),
     });
   }
@@ -70,10 +70,10 @@ export class UnitEditorPage {
           quality: this.qualityOptions.find(
             (option) => option.value === ogUnit!.quality
           ),
-          specialRules: ogUnit.specialRules,
+          edges: ogUnit.edges,
           image: ogUnit.image,
         });
-        this.specialRulesSelected = ogUnit.specialRules;
+        this.edgesSelected = ogUnit.edges;
       }
     }
   }
@@ -86,7 +86,7 @@ export class UnitEditorPage {
         : Math.random().toString(36).substring(2, 9),
       name: submission.name,
       quality: submission.quality.value,
-      specialRules: submission.specialRules,
+      edges: submission.edges,
       image: submission.image,
     };
     return newUnit;
@@ -105,13 +105,13 @@ export class UnitEditorPage {
     this.navCtrl.navigateBack('/');
   }
 
-  toggleRuleExpansion(specialRule: SpecialRule) {
-    if (this.expandedRules.includes(specialRule.name)) {
+  toggleEdgeExpansion(edge: Edge) {
+    if (this.expandedRules.includes(edge.name)) {
       this.expandedRules = this.expandedRules.filter(
-        (rule) => rule !== specialRule.name
+        (rule) => rule !== edge.name
       );
     } else {
-      this.expandedRules.push(specialRule.name);
+      this.expandedRules.push(edge.name);
     }
   }
 
@@ -119,40 +119,40 @@ export class UnitEditorPage {
     this.showRules = !this.showRules;
   }
 
-  toggleSpecialRule(rule: SpecialRule) {
+  toggleEdge(rule: Edge) {
     if (this.ruleIsSelected(rule)) {
-      this.removeSpecialRule(rule);
+      this.removeEdge(rule);
     } else {
-      this.addSpecialRule(rule);
+      this.addEdge(rule);
     }
   }
 
-  addSpecialRule(rule: SpecialRule) {
-    // Check whether the selected special rules have a rule with the same name
-    const existingRule = this.specialRulesSelected.find(
-      (selectedRule) => selectedRule.name === rule.name
+  addEdge(edge: Edge) {
+    // Check whether the selected edges have an edge with the same name
+    const existingRule = this.edgesSelected.find(
+      (selectedEdge) => selectedEdge.name === edge.name
     );
     if (!existingRule) {
-      this.specialRulesSelected.push(rule);
-      this.unitForm.controls['specialRules'].setValue(
-        this.specialRulesSelected
+      this.edgesSelected.push(edge);
+      this.unitForm.controls['edges'].setValue(
+        this.edgesSelected
       );
     } else {
-      this.removeSpecialRule(existingRule);
-      this.addSpecialRule(rule);
+      this.removeEdge(existingRule);
+      this.addEdge(edge);
     }
   }
 
-  removeSpecialRule(ruleToRemove: SpecialRule) {
-    this.specialRulesSelected = this.specialRulesSelected.filter(
-      (rule: SpecialRule) => rule.name !== ruleToRemove.name
+  removeEdge(ruleToRemove: Edge) {
+    this.edgesSelected = this.edgesSelected.filter(
+      (rule: Edge) => rule.name !== ruleToRemove.name
     );
-    this.unitForm.controls['specialRules'].setValue(this.specialRulesSelected);
+    this.unitForm.controls['edges'].setValue(this.edgesSelected);
   }
 
-  ruleIsSelected(rule: SpecialRule) {
+  ruleIsSelected(rule: Edge) {
     // Check by name rather than actual object equality because the rule may have come from an import
-    return this.specialRulesSelected.some(
+    return this.edgesSelected.some(
       (selectedRule) => selectedRule.name === rule.name
     );
   }

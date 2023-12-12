@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "WarStuffApp",
+	"appId": "com.jeremyglebe.skirmish",
+	"appName": "Skirmish App",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }
