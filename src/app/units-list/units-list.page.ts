@@ -35,10 +35,10 @@ export class UnitsListPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.unitService.initialize();
-    this.units = this.unitService.getUnits();
+    this.units = this.unitService.units;
     // Subscribe to changes in the unit service so we can update the list of units if needed
     this.unitService.changes.subscribe(() => {
-      this.units = this.unitService.getUnits();
+      this.units = this.unitService.units;
     });
   }
 
@@ -57,7 +57,8 @@ export class UnitsListPage implements OnInit, OnDestroy {
   }
 
   createUnit() {
-    this.navCtrl.navigateForward('/unit-editor');
+    // this.navCtrl.navigateForward('/unit-editor');
+    this.navCtrl.navigateForward('/create-unit-details');
   }
 
   editUnit(unit: Unit) {
@@ -85,14 +86,14 @@ export class UnitsListPage implements OnInit, OnDestroy {
                   text: 'No',
                   handler: () => {
                     this.unitService.deleteUnit(unit);
-                    this.units = this.unitService.getUnits();
+                    this.units = this.unitService.units;
                   },
                 },
                 {
                   text: 'Yes, purge from all my warbands',
                   handler: () => {
                     this.unitService.purgeUnit(unit);
-                    this.units = this.unitService.getUnits();
+                    this.units = this.unitService.units;
                   },
                 },
                 {

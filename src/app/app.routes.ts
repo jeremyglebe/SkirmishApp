@@ -84,5 +84,9 @@ export const routes: Routes = [
   {
     path: 'settings',
     loadComponent: () => import('./settings/settings.page').then( m => m.SettingsPage)
+  },  {
+    path: 'create-unit-details',
+    loadComponent: () => import('./pages/create-unit/create-unit-details/create-unit-details.page').then( m => m.CreateUnitDetailsPage)
   },
+
 ];

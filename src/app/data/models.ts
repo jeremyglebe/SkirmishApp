@@ -46,3 +46,9 @@ export interface UnitV2 {
   edges: Edge[];
   image?: string; // Optional property for unit image
 }
+
+export interface DataStorage {
+  units: Unit[];
+  warbands: Warband[];
+  enhancedUnitCostRule: boolean;
+}

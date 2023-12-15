@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Unit, Warband } from '../data/models';
 import { Storage } from '@ionic/storage-angular';
 import { RANK_COSTS } from '../data/core_rules';
+import { DataService } from './data.service';
 
 /**
  * UnitService is a service class that handles all interactions with units and warbands.
@@ -13,12 +14,11 @@ import { RANK_COSTS } from '../data/core_rules';
 })
 export class UnitService {
   public changes = new EventEmitter<void>();
-  private units: Unit[] = [];
   private warbands: Warband[] = [];
   private _startedInitialization = false;
   private enhancedUnitCostRule: boolean = false;
 
-  constructor(private storage: Storage) {}
+  constructor(private data: DataService) {}
 
   /**
    * Initializes the UnitService by loading units and warbands from storage.
@@ -26,13 +26,10 @@ export class UnitService {
   async initialize(): Promise<void> {
     if (this._startedInitialization) return;
     this._startedInitialization = true;
-    await this.storage.create();
-    const storedUnits = (await this.storage.get('units')) || [];
-    const storedWarbands = (await this.storage.get('warbands')) || [];
-    this.units = storedUnits;
+    await this.data.initialize();
+    const storedWarbands = this.data.warbands || [];
     this.warbands = storedWarbands;
-    this.enhancedUnitCostRule =
-      (await this.storage.get('enhancedUnitCostRule')) || false;
+    this.enhancedUnitCostRule = this.data.enhancedUnitCostRule || false;
   }
 
   /**
@@ -44,6 +41,10 @@ export class UnitService {
         'You must call UnitService.initialize() before using this service!'
       );
     }
+  }
+
+  get units(): Unit[] {
+    return this.data.units;
   }
 
   /**
@@ -112,13 +113,13 @@ export class UnitService {
   async setEnhancedUnitCostRule(value: boolean): Promise<void> {
     this.checkInitialization();
     this.enhancedUnitCostRule = value;
-    await this.storage.set('enhancedUnitCostRule', value);
+    await this.data.setEnhancedUnitCostRule(value);
     this.changes.emit();
   }
 
   async getEnhancedUnitCostRule(): Promise<boolean> {
     this.checkInitialization();
-    const value = await this.storage.get('enhancedUnitCostRule');
+    const value = this.data.enhancedUnitCostRule;
     this.enhancedUnitCostRule = value || false;
     return this.enhancedUnitCostRule;
   }
@@ -128,7 +129,7 @@ export class UnitService {
    */
   exportData(): string {
     const data = {
-      units: this.units,
+      units: this.data.units,
       warbands: this.warbands,
       enhancedUnitCostRule: this.enhancedUnitCostRule,
     };
@@ -139,10 +140,10 @@ export class UnitService {
     this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);
-      this.units = this.units.concat(data.units);
+      const units = this.data.units.concat(data.units);
       this.warbands = this.warbands.concat(data.warbands);
-      await this.storage.set('units', this.units);
-      await this.storage.set('warbands', this.warbands);
+      await this.data.setUnits(units);
+      await this.data.setWarbands(this.warbands);
       this.changes.emit();
       return true;
     } catch (error) {
@@ -155,8 +156,8 @@ export class UnitService {
     this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);
-      this.units = this.units.concat(data.units);
-      await this.storage.set('units', this.units);
+      const units = this.data.units.concat(data.units);
+      await this.data.setUnits(units);
       this.changes.emit();
       return true;
     } catch (error) {
@@ -170,7 +171,7 @@ export class UnitService {
     try {
       const data = JSON.parse(jsonString);
       this.warbands = this.warbands.concat(data.warbands);
-      await this.storage.set('warbands', this.warbands);
+      await this.data.setWarbands(this.warbands);
       this.changes.emit();
       return true;
     } catch (error) {
@@ -187,12 +188,12 @@ export class UnitService {
     this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);
-      this.units = data.units;
+      const units = data.units;
       this.warbands = data.warbands;
       this.enhancedUnitCostRule = data.enhancedUnitCostRule;
-      await this.storage.set('units', this.units);
-      await this.storage.set('warbands', this.warbands);
-      await this.storage.set('enhancedUnitCostRule', this.enhancedUnitCostRule);
+      await this.data.setUnits(units);
+      await this.data.setWarbands(this.warbands);
+      await this.data.setEnhancedUnitCostRule(this.enhancedUnitCostRule);
       this.changes.emit();
       return true;
     } catch (error) {
@@ -214,16 +215,8 @@ export class UnitService {
    */
   async addUnit(unit: Unit) {
     this.checkInitialization();
-    this.units.push(unit);
-    await this.storage.set('units', this.units);
-  }
-
-  /**
-   * Retrieves the units array.
-   */
-  getUnits(): Unit[] {
-    this.checkInitialization();
-    return this.units;
+    const units = this.data.units.concat(unit);
+    await this.data.setUnits(units);
   }
 
   /**
@@ -233,7 +226,7 @@ export class UnitService {
   async purgeUnit(unit: Unit) {
     this.checkInitialization();
     // Remove the unit from the units array
-    this.units = this.units.filter((u) => u.id !== unit.id);
+    const units = this.data.units.filter((u) => u.id !== unit.id);
 
     // Remove the unit from all warbands
     this.warbands = this.warbands.map((warband) => {
@@ -244,40 +237,30 @@ export class UnitService {
     });
 
     // Save the updated data to storage
-    await this.storage.set('units', this.units);
-    await this.storage.set('warbands', this.warbands);
+    await this.data.setUnits(units);
+    await this.data.setWarbands(this.warbands);
   }
 
   // Deletes a unit from the units array and storage, but does not remove it from warbands.
   async deleteUnit(unit: Unit) {
-    this.checkInitialization();
-    this.units = this.units.filter((u) => u.id !== unit.id);
-    await this.storage.set('units', this.units);
+    const units = this.data.units.filter((u) => u.id !== unit.id);
+    await this.data.setUnits(units);
   }
 
   /**
    * Clears the units array and removes the units from storage.
    */
   async clearUnits() {
-    this.checkInitialization();
-    await this.storage.remove('units');
-    this.units = [];
+    await this.data.clearUnits();
     this.changes.emit();
   }
 
   async updateUnit(updatedUnit: Unit): Promise<void> {
-    const unitIndex = this.units.findIndex(
-      (unit) => unit.id === updatedUnit.id
-    );
-    if (unitIndex !== -1) {
-      this.units[unitIndex] = updatedUnit;
-      await this.storage.set('units', this.units);
-    }
+    this.data.updateUnit(updatedUnit);
   }
 
   getUnitById(id: string): Unit | null {
-    const result = this.units.find((unit) => unit.id === id);
-    return result || null;
+    return this.data.getUnitById(id);
   }
 
   // __          __     _____  ____          _   _ _____   _____
@@ -294,7 +277,7 @@ export class UnitService {
   async addWarband(warband: Warband) {
     this.checkInitialization();
     this.warbands.push(warband);
-    await this.storage.set('warbands', this.warbands);
+    await this.data.setWarbands(this.warbands);
   }
   /**
    * Retrieves the warbands array.
@@ -315,7 +298,7 @@ export class UnitService {
       ...warbandData,
     };
     this.warbands.push(newWarband);
-    await this.storage.set('warbands', this.warbands);
+    await this.data.setWarbands(this.warbands);
   }
 
   /**
@@ -328,7 +311,7 @@ export class UnitService {
     );
     if (warbandIndex > -1) {
       this.warbands[warbandIndex] = updatedWarband;
-      await this.storage.set('warbands', this.warbands);
+      await this.data.setWarbands(this.warbands);
     }
   }
 
@@ -347,7 +330,7 @@ export class UnitService {
   async removeWarband(warband: Warband) {
     this.checkInitialization();
     this.warbands = this.warbands.filter((w) => w !== warband);
-    await this.storage.set('warbands', this.warbands);
+    await this.data.setWarbands(this.warbands);
   }
 
   /**
@@ -355,7 +338,7 @@ export class UnitService {
    */
   async clearWarbands() {
     this.checkInitialization();
-    await this.storage.remove('warbands');
+    await this.data.clearWarbands();
     this.warbands = [];
     this.changes.emit();
   }

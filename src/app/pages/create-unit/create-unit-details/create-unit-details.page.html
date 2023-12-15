@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Unit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6">
+        <img src="assets/default-unit-image.png" (click)="fileInput.click()" />
+        <input #fileInput type="file" hidden accept="image/*" />
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6">
+        <ion-input placeholder="Enter Name"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6">
+        <ion-button expand="full">Proceed</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

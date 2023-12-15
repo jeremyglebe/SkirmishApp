@@ -43,7 +43,7 @@ export class WarbandEditorPage {
     public unitService: UnitService,
     private modalController: ModalController
   ) {
-    this.unitList = this.unitService.getUnits();
+    this.unitList = this.unitService.units;
     this.paramID = this.route.snapshot.queryParamMap.get('warbandId');
     const newWarband = {
       id: '',
