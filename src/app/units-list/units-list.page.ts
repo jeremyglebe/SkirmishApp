@@ -57,8 +57,8 @@ export class UnitsListPage implements OnInit, OnDestroy {
   }
 
   createUnit() {
-    // this.navCtrl.navigateForward('/unit-editor');
-    this.navCtrl.navigateForward('/create-unit-details');
+    this.navCtrl.navigateForward('/unit-editor');
+    // this.navCtrl.navigateForward('/create-unit-details');
   }
 
   editUnit(unit: Unit) {
@@ -108,9 +108,5 @@ export class UnitsListPage implements OnInit, OnDestroy {
       ],
     });
     await alert.present();
-  }
-
-  navigateToWarbandsList() {
-    this.navCtrl.navigateForward('/warbands-list');
   }
 }
