@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Units List
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Units List</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,14 +11,22 @@
   <ion-list>
     <ion-item *ngFor="let unit of units" (click)="viewUnit(unit)">
       <ion-avatar slot="start">
-        <img [src]="unit.image || 'assets/default-unit-image.png'">
+        <img [src]="unit.image || 'assets/default-unit-image.png'" />
       </ion-avatar>
       <ion-label>{{ unit.name }}</ion-label>
       <ion-note slot="end">{{ unitService.calcUnitCost(unit) }}pts</ion-note>
-      <ion-button fill="clear" slot="end" (click)="editUnit(unit); $event.stopPropagation()">
+      <ion-button
+        fill="clear"
+        slot="end"
+        (click)="editUnit(unit); $event.stopPropagation()"
+      >
         <ion-icon slot="icon-only" name="pencil"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" slot="end" (click)="removeUnit(unit); $event.stopPropagation()">
+      <ion-button
+        fill="clear"
+        slot="end"
+        (click)="removeUnit(unit); $event.stopPropagation()"
+      >
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </ion-item>

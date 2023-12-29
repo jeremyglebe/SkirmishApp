@@ -1,0 +1,10 @@
+ion-content::part(background) {
+  background: url("../../../assets/knight.png") no-repeat center center / cover;
+  opacity: 0.35;
+}
+
+ion-list {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+}

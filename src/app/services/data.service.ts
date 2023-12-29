@@ -145,7 +145,7 @@ export class DataService {
   }
 
   private lock(): boolean {
-    // console.log('Locking DataService');
+    console.log('Locking DataService', console.trace());
     if (this._locked) return false;
     this._locked = true;
     this.whenLocked.emit();
@@ -153,7 +153,7 @@ export class DataService {
   }
 
   private unlock(): boolean {
-    // console.log('Unlocking DataService');
+    console.log('Unlocking DataService', console.trace());
     if (!this._locked) return false;
     this._locked = false;
     this.whenUnlocked.emit();

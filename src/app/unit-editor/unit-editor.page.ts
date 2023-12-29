@@ -96,13 +96,13 @@ export class UnitEditorPage {
     return this.unitService.calcUnitCost(this.unit);
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.editing) {
-      this.unitService.updateUnit(this.unit);
+      await this.unitService.updateUnit(this.unit);
     } else {
-      this.unitService.addUnit(this.unit);
+      await this.unitService.addUnit(this.unit);
     }
-    this.navCtrl.navigateBack('/');
+    this.navCtrl.navigateBack('/units');
   }
 
   toggleEdgeExpansion(edge: Edge) {
@@ -134,9 +134,7 @@ export class UnitEditorPage {
     );
     if (!existingRule) {
       this.edgesSelected.push(edge);
-      this.unitForm.controls['edges'].setValue(
-        this.edgesSelected
-      );
+      this.unitForm.controls['edges'].setValue(this.edgesSelected);
     } else {
       this.removeEdge(existingRule);
       this.addEdge(edge);
