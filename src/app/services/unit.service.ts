@@ -1,6 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Unit, Warband } from '../data/models';
-import { Storage } from '@ionic/storage-angular';
 import { RANK_COSTS } from '../data/core_rules';
 import { DataService } from './data.service';
 
@@ -17,6 +16,10 @@ export class UnitService {
   private warbands: Warband[] = [];
   private _startedInitialization = false;
   private enhancedUnitCostRule: boolean = false;
+
+  // A unit that is being edited or is otherwise not yet saved to storage
+  // Multiple pages may access this unit and this service will help them share state
+  public unitDraft: Unit | null = null;
 
   constructor(private data: DataService) {}
 
@@ -202,6 +205,11 @@ export class UnitService {
     }
   }
 
+  generateID(): string {
+    // Generates an id of 7 random alphanumeric characters
+    return Math.random().toString(36).substring(2, 9);
+  }
+
   //   _    _ _   _ _____ _______ _____
   //  | |  | | \ | |_   _|__   __/ ____|
   //  | |  | |  \| | | |    | | | (___
@@ -217,6 +225,7 @@ export class UnitService {
     this.checkInitialization();
     const units = this.data.units.concat(unit);
     await this.data.setUnits(units);
+    this.changes.emit();
   }
 
   /**

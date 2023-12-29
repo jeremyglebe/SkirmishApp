@@ -2,7 +2,7 @@
   "name": "skirmish-app",
   "version": "0.1.0",
   "author": "Jeremy Glebe",
-  "homepage": "https://jeremyglebe.com/",
+  "homepage": "https://jeremyglebe.com/SkirmishApp/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

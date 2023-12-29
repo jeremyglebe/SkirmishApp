@@ -84,15 +84,15 @@ export class UnitsListPage implements OnInit, OnDestroy {
               buttons: [
                 {
                   text: 'No',
-                  handler: () => {
-                    this.unitService.deleteUnit(unit);
+                  handler: async () => {
+                    await this.unitService.deleteUnit(unit);
                     this.units = this.unitService.units;
                   },
                 },
                 {
                   text: 'Yes, purge from all my warbands',
-                  handler: () => {
-                    this.unitService.purgeUnit(unit);
+                  handler: async () => {
+                    await this.unitService.purgeUnit(unit);
                     this.units = this.unitService.units;
                   },
                 },
