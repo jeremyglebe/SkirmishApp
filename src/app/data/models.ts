@@ -19,6 +19,8 @@ export interface Warband {
   units: { unit: Unit; count: number }[];
 }
 
+// ---------- Nothing below this line is in use yet ---------------------------
+
 export const DEFAULT_UNIT_IMAGE =
   'data:image/png;base64,your_base64_image_string_here';
 
