@@ -14,6 +14,7 @@ import {
 import { Unit } from '../data/models';
 import { UnitService } from '../services/unit.service';
 import { UnitViewPage } from '../unit-view/unit-view.page';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-units-list',
@@ -24,6 +25,7 @@ import { UnitViewPage } from '../unit-view/unit-view.page';
   imports: [IonicModule, CommonModule],
 })
 export class UnitsListPage implements OnInit, OnDestroy {
+  unitChangesListener?: Subscription;
   units: Unit[] = []; // Array to store the list of units
 
   constructor(
@@ -37,14 +39,14 @@ export class UnitsListPage implements OnInit, OnDestroy {
     await this.unitService.initialize();
     this.units = this.unitService.units;
     // Subscribe to changes in the unit service so we can update the list of units if needed
-    this.unitService.changes.subscribe(() => {
+    this.unitChangesListener = this.unitService.changes.subscribe(() => {
       this.units = this.unitService.units;
     });
   }
 
   async ngOnDestroy() {
     // Unsubscribe from changes in the unit service
-    this.unitService.changes.unsubscribe();
+    this.unitChangesListener?.unsubscribe();
   }
 
   async viewUnit(unit: Unit) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { IonicModule, NavController } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class HomePage implements OnInit {
-  constructor(private navCtrl: NavController) {}
+  constructor(private _: DataService, private navCtrl: NavController) {}
 
   ngOnInit() {}
 

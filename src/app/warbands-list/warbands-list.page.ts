@@ -22,7 +22,6 @@ export class WarbandsListPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.unitService.initialize();
     this.loadWarbands();
   }
 

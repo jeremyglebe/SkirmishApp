@@ -5,6 +5,7 @@ import { AlertController, IonicModule } from '@ionic/angular';
 import { UnitService } from '../services/unit.service';
 import { APP_DEPLOYMENT } from '../data/app_info';
 import { PeerService } from '../services/peer.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -14,6 +15,7 @@ import { PeerService } from '../services/peer.service';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class SettingsPage implements OnInit, OnDestroy {
+  unitChangesListener?: Subscription;
   enhancedUnitCostRule: boolean = false;
   peerConnectionsEnabled: boolean = false;
   peerConnectionEstablished: boolean = false;
@@ -32,7 +34,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.enhancedUnitCostRule =
       await this.unitService.getEnhancedUnitCostRule();
     // Subscribe to changes in the unit service so we can update settings if needed
-    this.unitService.changes.subscribe(async () => {
+    this.unitChangesListener = this.unitService.changes.subscribe(async () => {
       this.enhancedUnitCostRule =
         await this.unitService.getEnhancedUnitCostRule();
     });
@@ -40,7 +42,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   async ngOnDestroy() {
     // Unsubscribe from changes in the unit service
-    this.unitService.changes.unsubscribe();
+    this.unitChangesListener?.unsubscribe();
   }
 
   async onPeerConnectionsToggleChange(event: Event) {

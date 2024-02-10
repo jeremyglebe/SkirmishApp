@@ -1,25 +1,28 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Peer, DataConnection } from 'peerjs';
 import { Unit, Warband } from '../data/models';
+import { GuiService } from './gui.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PeerService {
-  private _startedInitialization = false;
   private p2p: Peer | null = null;
   public id: string = '';
   public open = new EventEmitter<void>();
   private _connectedPeers: DataConnection[] = [];
 
-  constructor() {}
+  constructor(private gui: GuiService) {
+    this.gui.showPromiseLoader(
+      this.initialize(),
+      'Loading Peer Service Settings...'
+    );
+  }
 
   /**
    * Initializes the PeerService.
    */
   async initialize(): Promise<void> {
-    if (this._startedInitialization) return;
-    this._startedInitialization = true;
     // Generate an id of random alphanumeric characters of length 6
     const id = Math.random().toString(36).substring(2, 8);
     this.id = `skirmish-app-${id}`;
@@ -32,27 +35,13 @@ export class PeerService {
   }
 
   async destroy(): Promise<void> {
-    if (!this._startedInitialization) return;
-    this._startedInitialization = false;
     this.p2p!.destroy();
     this.p2p = null;
     this.open.unsubscribe();
     this.open = new EventEmitter<void>();
   }
 
-  /**
-   * Ensures that the PeerService has been initialized before use.
-   */
-  checkInitialization(): void {
-    if (!this._startedInitialization) {
-      throw new Error(
-        'You must call PeerService.initialize() before using this service!'
-      );
-    }
-  }
-
   connectToPeer(peerId: string): DataConnection {
-    this.checkInitialization();
     const connection = this.p2p!.connect(peerId);
     // When the peer connection is established
     connection.on('open', () => {
@@ -66,7 +55,6 @@ export class PeerService {
   }
 
   sendUnitToPeers(unit: Unit): void {
-    this.checkInitialization();
     this._connectedPeers.forEach((peer) => {
       peer.send({
         messageType: 'unit',
@@ -76,7 +64,6 @@ export class PeerService {
   }
 
   sendWarbandToPeers(warband: Warband): void {
-    this.checkInitialization();
     this._connectedPeers.forEach((peer) => {
       peer.send({
         messageType: 'warband',

@@ -32,12 +32,6 @@ export const routes: Routes = [
             (m) => m.WarbandsListPage
           ),
       },
-      // The settings tab allows users to change app settings, as well as manage data backups and accounts
-      {
-        path: 'settings',
-        loadComponent: () =>
-          import('./settings/settings.page').then((m) => m.SettingsPage),
-      },
     ],
   },
   // This is a standalone route to the units listing page
@@ -82,6 +76,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./warband-view/warband-view.page').then((m) => m.WarbandViewPage),
   },
+  // The settings tab allows users to change app settings, as well as manage data backups and accounts
   {
     path: 'settings',
     loadComponent: () =>

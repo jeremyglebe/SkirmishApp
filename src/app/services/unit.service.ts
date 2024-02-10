@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Unit, Warband } from '../data/models';
 import { RANK_COSTS } from '../data/core_rules';
 import { DataService } from './data.service';
+import { GuiService } from './gui.service';
 
 /**
  * UnitService is a service class that handles all interactions with units and warbands.
@@ -14,36 +15,26 @@ import { DataService } from './data.service';
 export class UnitService {
   public changes = new EventEmitter<void>();
   private warbands: Warband[] = [];
-  private _startedInitialization = false;
   private enhancedUnitCostRule: boolean = false;
 
   // A unit that is being edited or is otherwise not yet saved to storage
   // Multiple pages may access this unit and this service will help them share state
   public unitDraft: Unit | null = null;
 
-  constructor(private data: DataService) {}
+  constructor(private data: DataService, private gui: GuiService) {
+    this.gui.showPromiseLoader(
+      this.initialize(),
+      'Initializing Unit Service...'
+    );
+  }
 
   /**
    * Initializes the UnitService by loading units and warbands from storage.
    */
   async initialize(): Promise<void> {
-    if (this._startedInitialization) return;
-    this._startedInitialization = true;
-    await this.data.initialize();
     const storedWarbands = this.data.warbands || [];
     this.warbands = storedWarbands;
     this.enhancedUnitCostRule = this.data.enhancedUnitCostRule || false;
-  }
-
-  /**
-   * Ensures that the UnitService has been initialized before use.
-   */
-  checkInitialization(): void {
-    if (!this._startedInitialization) {
-      throw new Error(
-        'You must call UnitService.initialize() before using this service!'
-      );
-    }
   }
 
   get units(): Unit[] {
@@ -54,7 +45,6 @@ export class UnitService {
    * Calculates the cost of a single unit based on its rank and edges.
    */
   calcUnitCost(unit: Unit): number {
-    this.checkInitialization();
     // The base cost of the unit based on its rank
     let unitCost = RANK_COSTS[unit.rank];
     // The total number of edges the unit has
@@ -97,7 +87,6 @@ export class UnitService {
    * Calculates the total cost of a warband by summing the costs of all its units.
    */
   calcWarbandCost(warband: Warband): number {
-    this.checkInitialization();
     let cost = 0;
     for (let unitObj of warband.units) {
       cost += this.calcUnitCost(unitObj.unit) * unitObj.count;
@@ -109,19 +98,16 @@ export class UnitService {
    * Retrieves the cost of a unit's rank.
    */
   getRankCost(unit: Unit): number {
-    this.checkInitialization();
     return RANK_COSTS[unit.rank];
   }
 
   async setEnhancedUnitCostRule(value: boolean): Promise<void> {
-    this.checkInitialization();
     this.enhancedUnitCostRule = value;
     await this.data.setEnhancedUnitCostRule(value);
     this.changes.emit();
   }
 
   async getEnhancedUnitCostRule(): Promise<boolean> {
-    this.checkInitialization();
     const value = this.data.enhancedUnitCostRule;
     this.enhancedUnitCostRule = value || false;
     return this.enhancedUnitCostRule;
@@ -140,7 +126,6 @@ export class UnitService {
   }
 
   async importAndMergeData(jsonString: string): Promise<boolean> {
-    this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);
       const units = this.data.units.concat(data.units);
@@ -156,7 +141,6 @@ export class UnitService {
   }
 
   async importAndMergeUnitsOnly(jsonString: string): Promise<boolean> {
-    this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);
       const units = this.data.units.concat(data.units);
@@ -170,7 +154,6 @@ export class UnitService {
   }
 
   async importAndMergeWarbandsOnly(jsonString: string): Promise<boolean> {
-    this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);
       this.warbands = this.warbands.concat(data.warbands);
@@ -188,7 +171,6 @@ export class UnitService {
    * Returns true if the import is successful, and false otherwise.
    */
   async importAndOverwriteData(jsonString: string): Promise<boolean> {
-    this.checkInitialization();
     try {
       const data = JSON.parse(jsonString);
       const units = data.units;
@@ -222,7 +204,6 @@ export class UnitService {
    * Adds a new unit to the units array and saves it to storage.
    */
   async addUnit(unit: Unit) {
-    this.checkInitialization();
     const units = this.data.units.concat(unit);
     await this.data.setUnits(units);
     this.changes.emit();
@@ -233,7 +214,6 @@ export class UnitService {
    * then saves the updated data to storage.
    */
   async purgeUnit(unit: Unit) {
-    this.checkInitialization();
     // Remove the unit from the units array
     const units = this.data.units.filter((u) => u.id !== unit.id);
 
@@ -284,7 +264,6 @@ export class UnitService {
    * Adds a new warband to the warbands array and saves it to storage.
    */
   async addWarband(warband: Warband) {
-    this.checkInitialization();
     this.warbands.push(warband);
     await this.data.setWarbands(this.warbands);
   }
@@ -292,7 +271,6 @@ export class UnitService {
    * Retrieves the warbands array.
    */
   getWarbands(): Warband[] {
-    this.checkInitialization();
     return this.warbands;
   }
 
@@ -301,7 +279,6 @@ export class UnitService {
    * and saves it to storage.
    */
   async createWarband(warbandData: Omit<Warband, 'id'>) {
-    this.checkInitialization();
     const newWarband: Warband = {
       id: Date.now().toString(),
       ...warbandData,
@@ -314,7 +291,6 @@ export class UnitService {
    * Updates an existing warband and saves the changes to storage.
    */
   async updateWarband(updatedWarband: Warband) {
-    this.checkInitialization();
     const warbandIndex = this.warbands.findIndex(
       (w) => w.id === updatedWarband.id
     );
@@ -328,7 +304,6 @@ export class UnitService {
    * Retrieves a warband by its ID.
    */
   getWarbandById(warbandId: string): Warband | null {
-    this.checkInitialization();
     const warband = this.warbands.find((w) => w.id === warbandId);
     return warband ? { ...warband } : null;
   }
@@ -337,7 +312,6 @@ export class UnitService {
    * Removes a warband from the warbands array and saves the changes to storage.
    */
   async removeWarband(warband: Warband) {
-    this.checkInitialization();
     this.warbands = this.warbands.filter((w) => w !== warband);
     await this.data.setWarbands(this.warbands);
   }
@@ -346,7 +320,6 @@ export class UnitService {
    * Clears the warbands array and removes warbands from storage.
    */
   async clearWarbands() {
-    this.checkInitialization();
     await this.data.clearWarbands();
     this.warbands = [];
     this.changes.emit();
