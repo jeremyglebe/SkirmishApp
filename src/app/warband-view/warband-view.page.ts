@@ -18,7 +18,6 @@ export class WarbandViewPage implements OnInit {
   warband: Warband;
 
   constructor(
-    private navCtrl: NavController,
     private route: ActivatedRoute,
     public unitService: UnitService,
     private modalController: ModalController
@@ -43,13 +42,12 @@ export class WarbandViewPage implements OnInit {
 
   unitRulesString(unit: Unit): string {
     const rules = [];
-    for(let rule of unit.edges) {
+    for (let rule of unit.edges) {
       rules.push(rule.name);
     }
     return rules.join(', ');
   }
 
-  
   async viewUnit(unit: Unit) {
     const modal = await this.modalController.create({
       component: UnitViewPage,
@@ -58,5 +56,4 @@ export class WarbandViewPage implements OnInit {
 
     await modal.present();
   }
-
 }

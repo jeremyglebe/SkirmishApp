@@ -102,7 +102,7 @@ export class UnitEditorPage {
     } else {
       await this.unitService.addUnit(this.unit);
     }
-    this.navCtrl.navigateBack('/units');
+    this.navCtrl.navigateBack('/tabs/units');
   }
 
   toggleEdgeExpansion(edge: Edge) {
