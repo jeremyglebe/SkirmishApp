@@ -24,6 +24,10 @@ export class PeerService {
     return p2pCutIdString(this._selfPeerId);
   }
 
+  get connections(): string[] {
+    return this._connections.map((connection) => connection.peer);
+  }
+
   /**
    * Initializes the PeerService.
    */

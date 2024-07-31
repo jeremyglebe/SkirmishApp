@@ -15,21 +15,28 @@ import { Subscription } from 'rxjs';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class SettingsPage implements OnInit, OnDestroy {
+  readonly appDeployment: string = APP_DEPLOYMENT;
   unitChangesListener?: Subscription;
-  enhancedUnitCostRule: boolean = false;
-  peerConnectionsEnabled: boolean = false;
-  peerConnectionEstablished: boolean = false;
-  appDeployment: string = APP_DEPLOYMENT;
-  showEnhancedUnitCostDescription: boolean = false;
-  peerId: string = '';
-  peerIdInput: string = '';
+
+  // Toggles
   dangerEnabled: boolean = false;
+  enhancedUnitCostRule: boolean = false;
+  EucShowDescription: boolean = false;
+  peerConnectionsEnabled: boolean = false;
+
+  // Peer service flags
+  peerConnectionEstablished: boolean = false;
+  peerId: string = '';
 
   constructor(
     public unitService: UnitService,
     private alertController: AlertController,
     private p2p: PeerService
   ) {}
+
+  get friends(): string[] {
+    return this.p2p.connections;
+  }
 
   async ngOnInit() {
     // Retrieve existing settings from the unit service
@@ -122,8 +129,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   toggleEnhancedUnitCostDescription(event: MouseEvent) {
     if ((event.target as HTMLElement).tagName !== 'ION-TOGGLE') {
-      this.showEnhancedUnitCostDescription =
-        !this.showEnhancedUnitCostDescription;
+      this.EucShowDescription = !this.EucShowDescription;
     }
   }
 

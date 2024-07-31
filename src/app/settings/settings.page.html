@@ -18,7 +18,7 @@
       (ionChange)="onEnhancedUnitCostRuleToggleChange($event)"
     ></ion-toggle>
   </ion-item>
-  <ion-item *ngIf="showEnhancedUnitCostDescription">
+  <ion-item *ngIf="EucShowDescription">
     <p>
       The Enhanced Unit Cost Rule is an optional rule that adds an additional
       cost to a unit's total cost based on the number of edges it has.
@@ -87,7 +87,7 @@
   </ion-item>
   <!-- Button to connect with a friend -->
   <ion-item
-    *ngIf="peerConnectionsEnabled"
+    *ngIf="peerConnectionEstablished"
     button
     color="primary"
     detail="true"
@@ -95,6 +95,23 @@
     (click)="openConnectModal()"
   >
     <ion-label>Connect to a Friend</ion-label>
+  </ion-item>
+  <!-- Show a list of connected friends -->
+  <ion-item *ngIf="peerConnectionEstablished">
+    <ion-label>Connected Friends</ion-label>
+    <ion-list>
+      <ion-item *ngFor="let friend of friends">
+        <ion-label>{{friend}}</ion-label>
+        <!-- <ion-button
+          slot="end"
+          color="danger"
+          fill="clear"
+          (click)="removeFriend(friend)"
+        >
+          <ion-icon name="trash"></ion-icon>
+        </ion-button> -->
+      </ion-item>
+    </ion-list>
   </ion-item>
 
   <!-- Dangerous Data Functions -->
