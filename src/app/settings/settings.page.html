@@ -35,16 +35,38 @@
 
   <!-- Data File Functions -->
   <ion-list-header>Data File Functions</ion-list-header>
-  <ion-button expand="block" (click)="exportData()">Export To File</ion-button>
-  <ion-button expand="block" (click)="importData()"
-    >Import And Merge All Data</ion-button
+  <ion-item
+    button
+    (click)="exportData()"
+    detail="true"
+    detail-icon="download-outline"
   >
-  <ion-button expand="block" color="secondary" (click)="importUnits()"
-    >Import And Merge Units</ion-button
+    <ion-label>Export to File</ion-label>
+  </ion-item>
+  <ion-item
+    button
+    (click)="importData()"
+    detail="true"
+    detail-icon="folder-open-outline"
   >
-  <ion-button expand="block" color="secondary" (click)="importWarbands()"
-    >Import And Merge Warbands</ion-button
+    <ion-label>Import And Merge All Data</ion-label>
+  </ion-item>
+  <ion-item
+    button
+    (click)="importUnits()"
+    detail="true"
+    detail-icon="people-circle-outline"
   >
+    <ion-label>Import And Merge Units</ion-label>
+  </ion-item>
+  <ion-item
+    button
+    (click)="importWarbands()"
+    detail="true"
+    detail-icon="list-outline"
+  >
+    <ion-label>Import And Merge Warbands</ion-label>
+  </ion-item>
 
   <!-- Peer Data Functions -->
   <ion-list-header>Peer Data Functions</ion-list-header>
@@ -60,16 +82,49 @@
   </ion-item>
   <!-- Show the user's id if peer connections are enabled -->
   <ion-item *ngIf="peerConnectionEstablished">
-    <ion-label>Peer Id</ion-label>
+    <ion-label>Your Friend Code</ion-label>
     <p>{{peerId}}</p>
+  </ion-item>
+  <!-- Button to connect with a friend -->
+  <ion-item
+    *ngIf="peerConnectionsEnabled"
+    button
+    color="primary"
+    detail="true"
+    detail-icon="earth-outline"
+    (click)="openConnectModal()"
+  >
+    <ion-label>Connect to a Friend</ion-label>
   </ion-item>
 
   <!-- Dangerous Data Functions -->
   <ion-list-header>Dangerous Data Functions</ion-list-header>
-  <ion-button expand="block" color="warning" (click)="overwriteData()"
-    >Overwrite With File</ion-button
+  <ion-item>
+    <ion-label>Show Dangerous Functions</ion-label>
+    <ion-toggle
+      slot="end"
+      aria-label="Toggle Dangerous Functions Visibility"
+      [(ngModel)]="dangerEnabled"
+    ></ion-toggle>
+  </ion-item>
+  <ion-item
+    *ngIf="dangerEnabled"
+    button
+    color="warning"
+    (click)="overwriteData()"
+    detail="true"
+    detail-icon="document-outline"
   >
-  <ion-button expand="block" color="danger" (click)="deleteData()"
-    >Delete All Data</ion-button
+    <ion-label>Overwrite With File</ion-label>
+  </ion-item>
+  <ion-item
+    *ngIf="dangerEnabled"
+    button
+    color="danger"
+    (click)="deleteData()"
+    detail="true"
+    detail-icon="trash"
   >
+    <ion-label>Delete All Data</ion-label>
+  </ion-item>
 </ion-content>

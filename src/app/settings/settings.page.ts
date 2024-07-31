@@ -22,6 +22,8 @@ export class SettingsPage implements OnInit, OnDestroy {
   appDeployment: string = APP_DEPLOYMENT;
   showEnhancedUnitCostDescription: boolean = false;
   peerId: string = '';
+  peerIdInput: string = '';
+  dangerEnabled: boolean = false;
 
   constructor(
     public unitService: UnitService,
@@ -82,6 +84,35 @@ export class SettingsPage implements OnInit, OnDestroy {
       this.peerConnectionEstablished = false;
       this.peerId = '';
     }
+  }
+
+  async openConnectModal() {
+    const alert = await this.alertController.create({
+      header: 'Connect to a Friend',
+      message: 'Enter the Friend Code of the person you want to connect to.',
+      inputs: [
+        {
+          name: 'peerId',
+          type: 'text',
+          placeholder: 'Friend Code',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Connect',
+          handler: (data) => {
+            if (data.peerId) {
+              this.p2p.connectTo(data.peerId);
+            }
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   async onEnhancedUnitCostRuleToggleChange(event: Event) {

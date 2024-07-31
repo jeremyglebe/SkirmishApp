@@ -8,9 +8,10 @@ import { GuiService } from './gui.service';
 })
 export class PeerService {
   private p2p: Peer | null = null;
-  public id: string = '';
+  private _selfPeerId: string = '';
+  private _connections: DataConnection[] = [];
+
   public open = new EventEmitter<void>();
-  private _connectedPeers: DataConnection[] = [];
 
   constructor(private gui: GuiService) {
     this.gui.showPromiseLoader(
@@ -19,19 +20,19 @@ export class PeerService {
     );
   }
 
+  get id(): string {
+    return p2pCutIdString(this._selfPeerId);
+  }
+
   /**
    * Initializes the PeerService.
    */
   async initialize(): Promise<void> {
-    // Generate an id of random alphanumeric characters of length 6
-    const id = Math.random().toString(36).substring(2, 8);
-    this.id = `skirmish-app-${id}`;
+    this._selfPeerId = p2pGetFullIdString(p2pGenerateId());
     // Create an instance of peerjs
-    this.p2p = new Peer(this.id);
+    this.p2p = new Peer(this._selfPeerId);
     // Alert the app when the peer connection is open
-    this.p2p!.on('open', () => {
-      this.open.emit();
-    });
+    this.p2p!.on('open', this.onSelfOpen.bind(this));
   }
 
   async destroy(): Promise<void> {
@@ -41,21 +42,38 @@ export class PeerService {
     this.open = new EventEmitter<void>();
   }
 
-  connectToPeer(peerId: string): DataConnection {
+  connectTo(peerId: string): DataConnection {
+    // Handle cut and full id strings by cutting just in case
+    // and then expanding the full id string
+    peerId = p2pGetFullIdString(p2pCutIdString(peerId));
+    // Connect to the peer with the given id
     const connection = this.p2p!.connect(peerId);
     // When the peer connection is established
-    connection.on('open', () => {
-      this._connectedPeers.push(connection);
-      // When receiving data from the peer
-      connection.on('data', (data) => {
-        console.log(data);
-      });
-    });
+    connection.on('open', this.onPeerOpen.bind(this, connection));
     return connection;
   }
 
-  sendUnitToPeers(unit: Unit): void {
-    this._connectedPeers.forEach((peer) => {
+  onSelfOpen(): void {
+    this.open.emit();
+    this.p2p!.on('connection', this.onSelfReceivedConnection.bind(this));
+  }
+
+  onSelfReceivedConnection(connection: DataConnection): void {
+    connection.on('open', this.onPeerOpen.bind(this, connection));
+  }
+
+  onPeerOpen(connection: DataConnection): void {
+    console.log(`onPeerOpen: Opened connection with ${connection.peer}`);
+    this._connections.push(connection);
+    connection.on('data', this.onPeerReceivedData.bind(this));
+  }
+
+  onPeerReceivedData(data: any): void {
+    console.log('onPeerReceivedData', data);
+  }
+
+  sendUnit(unit: Unit): void {
+    this._connections.forEach((peer) => {
       peer.send({
         messageType: 'unit',
         ...unit,
@@ -63,12 +81,25 @@ export class PeerService {
     });
   }
 
-  sendWarbandToPeers(warband: Warband): void {
-    this._connectedPeers.forEach((peer) => {
+  sendWarband(warband: Warband): void {
+    this._connections.forEach((peer) => {
       peer.send({
         messageType: 'warband',
         ...warband,
       });
     });
   }
+}
+
+export function p2pGenerateId(): string {
+  // Generate an id of random alphanumeric characters of length 6
+  return Math.random().toString(36).substring(2, 8);
+}
+
+export function p2pGetFullIdString(id: string): string {
+  return `skirmish-app-${id}`;
+}
+
+export function p2pCutIdString(id: string): string {
+  return id.replace('skirmish-app-', '');
 }
