@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1707631135900,
+  "timestamp": 1722466355088,
   "index": "/SkirmishApp/index.html",
   "assetGroups": [
     {
@@ -53,7 +53,7 @@
         "/SkirmishApp/7602.a419343e0cf3a154.js",
         "/SkirmishApp/7696.c48f008617ec7da1.js",
         "/SkirmishApp/7942.ef4de3fb8acf9db6.js",
-        "/SkirmishApp/8022.ab3f0f0f82020063.js",
+        "/SkirmishApp/8022.4e32abf2aca352b0.js",
         "/SkirmishApp/8034.de7ab4772aa5cd26.js",
         "/SkirmishApp/8136.321cabc33c6eed68.js",
         "/SkirmishApp/8242.d5cf70823008969f.js",
@@ -78,7 +78,7 @@
         "/SkirmishApp/polyfills-core-js.9b71ceed1de7450c.js",
         "/SkirmishApp/polyfills-dom.5c5f23fb57b03028.js",
         "/SkirmishApp/polyfills.d4788768f8be496e.js",
-        "/SkirmishApp/runtime.c5ea45777afab16e.js",
+        "/SkirmishApp/runtime.38fb76b006a5443f.js",
         "/SkirmishApp/styles.965386fe6782e473.css"
       ],
       "patterns": []
@@ -151,7 +151,7 @@
     "/SkirmishApp/7602.a419343e0cf3a154.js": "d83b429f0b6ae369457ae3e60bd78b00219e2814",
     "/SkirmishApp/7696.c48f008617ec7da1.js": "39c0ebbeacfa9c5dfc0b68191a8025b70dedd77a",
     "/SkirmishApp/7942.ef4de3fb8acf9db6.js": "b650b3fad1efb638f32ee9a39a4115006733f3a1",
-    "/SkirmishApp/8022.ab3f0f0f82020063.js": "e5a450ab8213595fec06fe6583198bf04692d5c2",
+    "/SkirmishApp/8022.4e32abf2aca352b0.js": "316ae5af3a2ed3cc63eca7e83bf51e08c8ff379f",
     "/SkirmishApp/8034.de7ab4772aa5cd26.js": "8fc984e5f54046e104fe0607ab6bb3e64dcb386a",
     "/SkirmishApp/8136.321cabc33c6eed68.js": "c71ba6b71711398907f913d737d503e167cf3c75",
     "/SkirmishApp/8242.d5cf70823008969f.js": "4d6b2900c86896f19c8f5471b60c11ca7e114b00",
@@ -181,14 +181,14 @@
     "/SkirmishApp/assets/icons/icon-96x96.png": "64b505df84e7f9a9bfe7f1bae7a5cb4789fa4853",
     "/SkirmishApp/assets/knight.png": "493f5993bb9cc8becab4af2ba7c00cf5723f06e7",
     "/SkirmishApp/common.9566bdf22865f30e.js": "dbd3de1737407420e44f5b496c598f90f028a6e5",
-    "/SkirmishApp/index.html": "3251085503921cedb01439f075623a7e17b0ee7e",
+    "/SkirmishApp/index.html": "3d767c7d1fd40e54ecfeee0aa6aa7c0ff1c33fcb",
     "/SkirmishApp/knight.693c4d48b88546d5.png": "493f5993bb9cc8becab4af2ba7c00cf5723f06e7",
     "/SkirmishApp/main.1d3b7347b1213948.js": "f0e7180e5c6e179db2f7cd109874dc9dedd646d3",
     "/SkirmishApp/manifest.webmanifest": "c99415324aeb207159f0d763b99fa2dc10dc2b10",
     "/SkirmishApp/polyfills-core-js.9b71ceed1de7450c.js": "468569373464d87d7b70e6e53a64e3de1e487d3f",
     "/SkirmishApp/polyfills-dom.5c5f23fb57b03028.js": "06f5dc30f55bf9a3d9c6f9bca07c0041a6bbdaa0",
     "/SkirmishApp/polyfills.d4788768f8be496e.js": "3cda53753ebe9ab6bb6fe6beb032e1a967ca5567",
-    "/SkirmishApp/runtime.c5ea45777afab16e.js": "944c2073c5a71b2d895fc0bb840a09d59437d465",
+    "/SkirmishApp/runtime.38fb76b006a5443f.js": "b264bc6a108412d39ba516d8f9b5862e20aa2240",
     "/SkirmishApp/styles.965386fe6782e473.css": "db59c72db59d9833b7a1bf35f7cc04b21012f3d8"
   },
   "navigationUrls": [
