@@ -49,6 +49,18 @@ export interface UnitV2 {
   image?: string; // Optional property for unit image
 }
 
+export interface DraftUnit {
+  id?: string;
+  name?: string;
+  rank?: number;
+  attack?: number;
+  defense?: number;
+  size?: UnitSize;
+  speed?: UnitSpeed;
+  edges?: Edge[];
+  image?: string; // Optional property for unit image
+}
+
 export interface DataStorage {
   units: Unit[];
   warbands: Warband[];
